@@ -24,6 +24,7 @@
     <string name="pendienteCompletado">Pendientes Completados</string>
     <string name="pendientesCompleted">Completados</string>
     <string name="agregarBtn">Agregar</string>
+    <string name="labelPrioridad">Prioridad</string>
     <string name="labelDescripcion">Descripcion:</string>
     <string name="labelHora">Hora</string>
     <string name="labelFecha">Fecha</string>

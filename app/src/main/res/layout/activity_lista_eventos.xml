@@ -38,8 +38,8 @@
 
     <ImageView
         android:id="@+id/imgFondo3"
-        android:layout_width="419dp"
-        android:layout_height="71dp"
+        android:layout_width="421dp"
+        android:layout_height="80dp"
         android:contentDescription="@string/imgFondo2"
         android:scaleType="fitXY"
         android:src="@drawable/abajo"
@@ -50,5 +50,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="ImageContrastCheck,VisualLintBounds" />
+
+    <FrameLayout
+        android:layout_width="99dp"
+        android:layout_height="67dp"
+        android:background="@drawable/frame_calendario"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="658dp" >
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/mas" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
