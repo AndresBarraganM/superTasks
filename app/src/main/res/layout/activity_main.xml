@@ -171,6 +171,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.446">
 
+        <TextView
+            android:id="@+id/labelUltimoPendiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:text="TextView" />
     </FrameLayout>
 
     <FrameLayout
@@ -185,6 +192,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.446">
 
+        <TextView
+            android:id="@+id/labelUltimoPendiente2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:text="TextView"/>
     </FrameLayout>
 
     <Button
@@ -213,7 +227,7 @@
         app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.663" />
+        app:layout_constraintVertical_bias="0.676" />
 
     <TextView
         android:id="@+id/txtVerTodos2"
@@ -226,7 +240,7 @@
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.663" />
+        app:layout_constraintVertical_bias="0.677" />
 
     <FrameLayout
         android:id="@+id/framePendientes3"

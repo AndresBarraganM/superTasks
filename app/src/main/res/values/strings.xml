@@ -33,4 +33,5 @@
     <string name="calendario">calendario</string>
     <string name="panelDescripcion" />
     <string name="btnRegresar">botonRegresar</string>
+    <string name="imgMas">mas</string>
 </resources>

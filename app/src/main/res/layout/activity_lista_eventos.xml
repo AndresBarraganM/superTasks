@@ -56,13 +56,15 @@
         android:layout_height="67dp"
         android:background="@drawable/frame_calendario"
         tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="658dp" >
+        tools:layout_editor_absoluteY="658dp"
+        tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imgMasAgregar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/mas" />
+            app:srcCompat="@drawable/mas"
+            android:contentDescription="@string/imgMas" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
