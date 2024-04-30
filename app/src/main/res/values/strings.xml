@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">superTasks</string>
+    <string name="txtBienvenida">Buen día, ¡recuerda realizar tus\npendientes del día!</string>
+    <string name="txtUltimosTasks">Últimos pendientes</string>
+    <string name="txtPendientesCompletados">Pendientes Completados</string>
+    <string name="txtVerTodos">Ver todos</string>
+    <string name="txtVerTodos2">Ver todos</string>
+    <string name ="txtPendientesCompleatods">Pendientes Completados</string>
+
+    <string name="btnCrearTarea">Crea una nueva tarea</string>
+    <string name="btnCalendario">Calendario de eventos</string>
+    <string name="btnAgregar">Agregar</string>
+
+    <string name="imgEncabezado">encabezado</string>
+    <string name="imgFondo2">imgFondo2</string>
+
+    <string name="contadorEventos">0</string>
+    <string name="contadorEventos2">0</string>
+    <string name="contadorEventos3">0</string>
+
+    <string name="eventoDiario">Eventos \nmañana</string>
+    <string name="eventoSemanal">Eventos esta \nsemana</string>
+    <string name="eventoMensual">Eventos este \nmes</string>
+    <string name="pendienteCompletado">Pendientes Completados</string>
+    <string name="pendientesCompleted">Completados</string>
+    <string name="agregarBtn">Agregar</string>
+    <string name="labelDescripcion">Descripcion:</string>
+    <string name="labelHora">Hora</string>
+    <string name="labelFecha">Fecha</string>
+    <string name="labelCalendario">Eventos para mañana</string>
+    <string name="txtFieldNombre">Nombre:</string>
+    <string name="calendario">calendario</string>
+    <string name="panelDescripcion" />
+    <string name="btnRegresar">botonRegresar</string>
 </resources>
