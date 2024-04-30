@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtDescripcion"
+        android:layout_width="128dp"
+        android:layout_height="31dp"
+        android:text="@string/labelDescripcion"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.197"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.388"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/txtNombre"
+        android:layout_width="128dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="63dp"
+        android:text="@string/txtFieldNombre"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/textFieldDescripcion"
+        android:layout_width="298dp"
+        android:layout_height="180dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/txtFieldNombre"
+        android:layout_width="343dp"
+        android:layout_height="48dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="text"
+        android:text="@string/panelDescripcion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.153"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/txtFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/labelFecha"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.226" />
+
+    <TextView
+        android:id="@+id/txtHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/labelHora"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.744"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.225" />
+
+    <Button
+        android:id="@+id/btnAgregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/agregarBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.908" />
+
+    <Spinner
+        android:id="@+id/comboPrioridad"
+        android:layout_width="197dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.733"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.763" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

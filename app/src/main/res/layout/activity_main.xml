@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imagenFondo"
+        android:layout_width="501dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/imgEncabezado"
+        android:scaleType="fitXY"
+        android:src="@drawable/encabezado"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="ImageContrastCheck,VisualLintBounds" />
+
+    <TextView
+        android:id="@+id/txtBienvenida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtBienvenida"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <FrameLayout
+        android:id="@+id/frameEventos"
+        android:layout_width="304dp"
+        android:layout_height="123dp"
+        android:background="@drawable/frame_eventos_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.153">
+
+        <TextView
+            android:id="@+id/textEventosSemanales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="80dp"
+            android:text="@string/eventoSemanal"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/textEventosMensuales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="80dp"
+            android:text="@string/eventoMensual"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/contadorEventos2"
+            android:layout_width="37dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="133dp"
+            android:layout_marginTop="55dp"
+            android:text="@string/contadorEventos2"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/contadorEventos3"
+            android:layout_width="37dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="245dp"
+            android:layout_marginTop="55dp"
+            android:text="@string/contadorEventos3"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textEventosParaManana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eventoDiario"
+            android:textSize="13sp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="80dp" />
+
+        <ImageView
+            android:id="@+id/eventoDiario"
+            android:layout_width="88dp"
+            android:layout_height="45dp"
+            android:textSize="13sp"
+            app:srcCompat="@drawable/eventos_diarios"
+            android:layout_gravity="start"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/eventoDiario" />
+
+        <TextView
+            android:id="@+id/contadorEventos"
+            android:layout_width="37dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="55dp"
+            android:text="@string/contadorEventos"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/eventoSemanal"
+            android:layout_width="88dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/eventos_semanales"
+            android:contentDescription="@string/eventoMensual" />
+
+        <ImageView
+            android:id="@+id/eventoMensual"
+            android:layout_width="88dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="210dp"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/eventos_mensuales"
+            android:contentDescription="@string/eventoSemanal" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtUltimosTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtUltimosTasks"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.335" />
+
+    <TextView
+        android:id="@+id/txtVerTodos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtVerTodos"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.335" />
+
+    <FrameLayout
+        android:id="@+id/framePendientes1"
+        android:layout_width="141dp"
+        android:layout_height="119dp"
+        android:background="@drawable/frame_pendientes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.446">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/framePendientes2"
+        android:layout_width="141dp"
+        android:layout_height="119dp"
+        android:background="@drawable/frame_pendientes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.446">
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnCrearTarea"
+        android:layout_width="185dp"
+        android:layout_height="48dp"
+        android:background="@color/purple_200"
+        android:text="@string/btnCrearTarea"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.603"
+        tools:ignore="TextSizeCheck,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/txtPendientesCompletados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtPendientesCompleatods"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.663" />
+
+    <TextView
+        android:id="@+id/txtVerTodos2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtVerTodos2"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.663" />
+
+    <FrameLayout
+        android:id="@+id/framePendientes3"
+        android:layout_width="210dp"
+        android:layout_height="115dp"
+        android:background="@drawable/frame_pendientes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.836">
+
+        <ImageView
+            android:id="@+id/pendientesCompletados"
+            android:layout_width="166dp"
+            android:layout_height="67dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="-45dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/pendientesCompleted"
+            app:srcCompat="@drawable/completado"
+            tools:ignore="VisualLintBounds" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imagenFondo2"
+        android:layout_width="419dp"
+        android:layout_height="71dp"
+        android:contentDescription="@string/imgFondo2"
+        android:scaleType="fitXY"
+        android:src="@drawable/abajo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="ImageContrastCheck,VisualLintBounds" />
+
+
+    <FrameLayout
+        android:id="@+id/frameCalendario"
+        android:layout_width="117dp"
+        android:layout_height="67dp"
+        android:background="@drawable/frame_calendario"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageView
+            android:id="@+id/btnCalendario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pendienteCompletado"
+            app:srcCompat="@drawable/calendario" />
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
