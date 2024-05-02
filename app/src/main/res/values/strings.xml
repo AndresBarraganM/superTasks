@@ -34,4 +34,7 @@
     <string name="panelDescripcion" />
     <string name="btnRegresar">botonRegresar</string>
     <string name="imgMas">mas</string>
+    <string name="btnRegresarActCalendar">REGRESAR</string>
+    <string name="textCalendario">CALENDARIO</string>
+    <string name="imgRegresarCalend">regresar</string>
 </resources>
