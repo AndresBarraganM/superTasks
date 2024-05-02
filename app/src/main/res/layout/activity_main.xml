@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ventanas.MainActivity">
 
     <ImageView
         android:id="@+id/imagenFondo"
@@ -96,22 +96,23 @@
             android:id="@+id/eventoDiario"
             android:layout_width="88dp"
             android:layout_height="45dp"
-            android:textSize="13sp"
-            app:srcCompat="@drawable/eventos_diarios"
             android:layout_gravity="start"
-            android:layout_marginStart="1dp"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="8dp"
-            android:contentDescription="@string/eventoDiario" />
+            android:contentDescription="@string/eventoDiario"
+            android:textSize="13sp"
+            app:srcCompat="@drawable/eventos_diarios" />
 
         <TextView
             android:id="@+id/contadorEventos"
             android:layout_width="37dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="38dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="55dp"
             android:text="@string/contadorEventos"
+            android:textAlignment="center"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/eventoSemanal"
@@ -119,8 +120,8 @@
             android:layout_height="45dp"
             android:layout_marginStart="100dp"
             android:layout_marginTop="8dp"
-            app:srcCompat="@drawable/eventos_semanales"
-            android:contentDescription="@string/eventoMensual" />
+            android:contentDescription="@string/eventoMensual"
+            app:srcCompat="@drawable/eventos_semanales" />
 
         <ImageView
             android:id="@+id/eventoMensual"
@@ -308,7 +309,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/pendienteCompletado"
-            app:srcCompat="@drawable/calendario" />
+            app:srcCompat="@drawable/calendario"
+            android:onClick="initCalendario"/>
     </FrameLayout>
 
 

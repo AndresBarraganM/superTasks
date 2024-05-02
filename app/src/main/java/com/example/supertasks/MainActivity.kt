@@ -1,8 +1,8 @@
-package com.example.supertasks
-
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -17,30 +17,23 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SuperTasksTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    // Botón para abrir la nueva actividad
+                    Text(
+                        text = "Ola",
+                        modifier = Modifier.clickable {
+                            val intent = Intent(this@MainActivity, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+                    )
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+// Otras funciones y composables aquí...
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SuperTasksTheme {
-        Greeting("Android")
-    }
-}
