@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.supertasks.R;
@@ -23,12 +25,37 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        // 02/05/2024 -- Funcionalidad desplegar calendario en Activity Calendario //
+
         ImageView btnCalendario = findViewById(R.id.btnCalendario);
         btnCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 26/04/2024
                 Intent intent = new Intent(MainActivity.this, ActivityCalendario.class);
+                startActivity(intent);
+            }
+        });
+
+        // 02/05/2024 -- Funcionalidad boton Crear Tarea //
+
+        Button btnCrearEvento = findViewById(R.id.btnCrearTarea);
+        btnCrearEvento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ActivityCrearEventos.class);
+                startActivity(intent);
+            }
+        });
+
+        // 02/05/2024 -- Funcionalidad boton Ver Todos //
+
+        TextView txtVerTodos = findViewById(R.id.txtVerTodos);
+        txtVerTodos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ActivityListaEventos.class);
                 startActivity(intent);
             }
         });

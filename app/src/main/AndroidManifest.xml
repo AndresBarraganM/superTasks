@@ -28,6 +28,11 @@
             android:exported="true"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".ventanas.ActivityCrearEventos"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
