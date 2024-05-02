@@ -83,6 +83,5 @@ class Evento {
         return fecha.hashCode()
     }
 
-    //Sets and getters
 
 }
