@@ -18,10 +18,10 @@ public class ActivityCalendario extends AppCompatActivity {
         setContentView(R.layout.activity_calendario);
         CalendarView calendarioView = findViewById(R.id.calendario);
 
-        Calendar calendarioActual = Calendar.getInstance();
-        int anio = calendarioActual.get(Calendar.YEAR);
-        int mes = calendarioActual.get(Calendar.MONTH);
-        int dia = calendarioActual.get(Calendar.DAY_OF_MONTH);
+//        Calendar calendarioActual = Calendar.getInstance();
+//        int anio = calendarioActual.get(Calendar.YEAR);
+//        int mes = calendarioActual.get(Calendar.MONTH);
+//        int dia = calendarioActual.get(Calendar.DAY_OF_MONTH);
 
         calendarioView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
         });

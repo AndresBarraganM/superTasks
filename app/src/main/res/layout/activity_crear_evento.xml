@@ -157,7 +157,7 @@
         tools:ignore="ImageContrastCheck,VisualLintBounds" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/verCalendario"
         android:layout_width="58dp"
         android:layout_height="65dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -165,7 +165,7 @@
         app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.289"
+        app:layout_constraintVertical_bias="0.276"
         app:srcCompat="@drawable/calendario" />
 
     <TextView
