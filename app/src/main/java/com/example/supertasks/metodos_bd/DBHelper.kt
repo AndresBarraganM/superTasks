@@ -1,8 +1,11 @@
 package com.example.supertasks.metodos_bd
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.supertasks.modelos.Evento
+
 class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object{
         private const val DATABASE_NAME = "SuperTaskDB"
@@ -63,5 +66,36 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         onUpgrade(db, oldVersion, newVersion)
     }
      */
+    //Metodos para crear
+    fun crearEvento(evento: Evento){
+        val fecha = evento.fecha.toString()
+        val nombre = evento.nombre
+        val descripcion = evento.descripcion
+        val prioridad = evento.prioridad
+        val color = evento.color
+
+        val db = writableDatabase
+
+        val values = ContentValues().apply {
+            put("fecha", fecha)
+            put("nombre", nombre)
+            put("descripcion", descripcion)
+            put("prioridad", prioridad)
+            put("color", color)
+        }
+
+        /*
+        val instruccion: String = " " +
+                "INSERT INTO  $TABLE_NAME_EVENTO " +
+                "(nombre, descripcion, color)" +
+                "VALUES" +
+                "($nombre, $descripcion, $color)"
+        */
+        db.insert(TABLE_NAME_CATEGORIA, null, values)
+        db.close()
+    }
+
+
+
 }
 
