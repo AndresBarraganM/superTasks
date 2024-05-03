@@ -5,19 +5,19 @@ import java.util.Date
 //Clase que representa categorias
 
 class Categoria {
-    private var id_categoria: Int = 0 //ID de la bd
+    var id_categoria: Int = 0 //ID de la bd
         get()= field
         set(value) {field = value }
 
-    private var nombre: String = "Nombre de evento" //nombre del evento
+    var nombre: String = "Nombre de evento" //nombre del evento
         get() = field
         set(value) {field = value}
 
-    private var descripcion: String? = "Descripcion de evento" //Descripcion del evento
+    var descripcion: String? = "Descripcion de evento" //Descripcion del evento
         get() = field
         set(value) {field = value}
 
-    private var color: String? = null //Color de el evento, por ver si se implementara
+    var color: String? = null //Color de el evento, por ver si se implementara
         get() = field
         set(value) {field = value}
 

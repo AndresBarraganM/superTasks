@@ -5,22 +5,22 @@ import java.util.Date //Documentacion https://developer.android.com/reference/ko
 //Clase la cual representa eventos
 
 class Evento {
-    private var id_evento: Int = 0 //ID de la base de datos
+    var id_evento: Int = 0 //ID de la base de datos
         get()= field
         set(value) {field = value }
-    private var fecha: Date = Date()//Fecha de el evento
+    var fecha: Date = Date()//Fecha de el evento
         get() = field
         set(value) {field = value}
-    private var nombre: String = "Nombre de evento" //nombre del evento
+    var nombre: String = "Nombre de evento" //nombre del evento
+        get() {return field}
+        set(value) {field = value}
+    var descripcion: String? = "Descripcion de evento" //Descripcion del evento
         get() = field
         set(value) {field = value}
-    private var descripcion: String? = "Descripcion de evento" //Descripcion del evento
+    var prioridad: Int? = 0 //Prioridad de el evento
         get() = field
         set(value) {field = value}
-    private var prioridad: Int? = 0 //Prioridad de el evento
-        get() = field
-        set(value) {field = value}
-    private var color: String? = null //Color de el evento, por ver si se implementara
+   var color: String? = null //Color de el evento, por ver si se implementara
         get() = field
         set(value) {field = value}
 
