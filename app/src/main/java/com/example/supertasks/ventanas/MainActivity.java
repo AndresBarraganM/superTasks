@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         btnCrearTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ActivityCrearEventos.class);
+                startActivity(intent);
 
             }
         });
@@ -38,21 +40,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 02/05/2024 -- Funcionalidad boton Crear Tarea //
+        // 02/05/2024 -- Funcionalidad boton Ver Todos //
 
-        Button btnCrearEvento = findViewById(R.id.btnCrearTarea);
-        btnCrearEvento.setOnClickListener(new View.OnClickListener() {
+        TextView txtVerTodosEventos = findViewById(R.id.txtVerTodosEventos);
+        txtVerTodosEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityCrearEventos.class);
+                Intent intent = new Intent(MainActivity.this, ActivityListaEventos.class);
                 startActivity(intent);
             }
         });
 
-        // 02/05/2024 -- Funcionalidad boton Ver Todos //
-
-        TextView txtVerTodos = findViewById(R.id.txtVerTodos);
-        txtVerTodos.setOnClickListener(new View.OnClickListener() {
+        TextView txtVerTodosCompletados = findViewById(R.id.txtVerTodosCompletados);
+        txtVerTodosCompletados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ActivityListaEventos.class);

@@ -148,7 +148,7 @@
         app:layout_constraintVertical_bias="0.335" />
 
     <TextView
-        android:id="@+id/txtVerTodos"
+        android:id="@+id/txtVerTodosEventos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txtVerTodos"
@@ -232,7 +232,7 @@
         app:layout_constraintVertical_bias="0.676" />
 
     <TextView
-        android:id="@+id/txtVerTodos2"
+        android:id="@+id/txtVerTodosCompletados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txtVerTodos2"
