@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.supertasks.modelos.Evento
+import java.util.Date
 
 class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object{
@@ -24,7 +25,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
     val comando_crear_tabla_evento: String = """
         CREATE TABLE $TABLE_NAME_EVENTO (
           $ID_PRIMARIA_EVENTO INT NOT NULL,
-          "fecha" TEXT NOT NULL DEFAULT '0000-00-00 00:00:00',
+          "fecha" TEXT NOT NULL DEFAULT '0000-00-00 00:00',
           "nombre" VARCHAR(20) NOT NULL DEFAULT 'Nombre de evento',
           "descripcion" VARCHAR(100)  DEFAULT 'No cuenta con descripcion',
           "prioridad" INT DEFAULT 1,
@@ -68,11 +69,21 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
      */
     //Metodos para crear
     fun crearEvento(evento: Evento){
-        val fecha = evento.fecha.toString()
         val nombre = evento.nombre
         val descripcion = evento.descripcion
         val prioridad = evento.prioridad
         val color = evento.color
+
+        //Obtener fecha en el formato deseado
+        val dia = (evento.fecha.getDay()).toString()
+        val mes = (evento.fecha.getMonth()).toString()
+        val anio = (evento.fecha.getYear()).toString()
+
+        val hora = (evento.fecha.getHours()).toString()
+        val minutos = (evento.fecha.getMinutes()).toString()
+
+        //Saltamos segundos
+        val fecha = "$anio-$mes-$dia $hora:$minutos"
 
         val db = writableDatabase
 
@@ -95,7 +106,43 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         db.close()
     }
 
+    fun obtenerTodosEventos(): List<Evento>{
+        val listaEventos = mutableListOf<Evento>()
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_EVENTO"
+        val cursor = db.rawQuery(query, null)
 
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ID_PRIMARIA_EVENTO))
+            val nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"))
+            val descripcion = cursor.getString(cursor.getColumnIndexOrThrow("desripcion"))
+            val prioridad = cursor.getInt(cursor.getColumnIndexOrThrow("prioridad"))
+            val color = cursor.getString(cursor.getColumnIndexOrThrow("color"))
 
+            //crear Date, fecha de entrada en 0000-00-00 00:00
+            val fechaTexto = cursor.getString(cursor.getColumnIndexOrThrow("fecha"))
+                //Separar para dia, mes, anio y hora
+            val dia = Integer.parseInt(fechaTexto.split("-")[0])
+            val mes = Integer.parseInt(fechaTexto.split("-")[1])
+            val anio = Integer.parseInt((fechaTexto.split("-")[2]).split(" ")[0])
+            val hora = Integer.parseInt((fechaTexto.split(" ")[1]).split(":")[0])
+            val minutos = Integer.parseInt(fechaTexto.split(":")[1])
+            val fecha = Date(anio,mes,dia,hora,minutos)
+
+            val evento = Evento(id, nombre,fecha, descripcion, prioridad, color)
+            listaEventos.add(evento)
+        }
+        cursor.close()
+        db.close()
+        return listaEventos
+    }
+
+    fun obtenerEvento(id_entrada: Int): Evento
+    {
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_EVENTO WHERE 'id_evento'= $id_entrada"
+        val cursor = db.rawQuery(query, null)
+
+    }
 }
 
