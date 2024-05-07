@@ -137,8 +137,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         return listaEventos
     }
 
-    fun obtenerEvento(id_entrada: Int): Evento
-    {
+    fun obtenerEvento(id_entrada: Int): Evento {
         val db = readableDatabase
         val query = "SELECT * FROM $TABLE_NAME_EVENTO WHERE 'id_evento'= $id_entrada"
         val cursor = db.rawQuery(query, null)
@@ -166,6 +165,14 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         db.close()
 
         return evento
+    }
+
+    fun borrarEvento(id_entrada: Int){
+        val db = writableDatabase
+        val clausulaWhere  =  ""
+        val argumentos = arrayOf(id_entrada.toString())
+        db.delete(TABLE_NAME_EVENTO,clausulaWhere, argumentos)
+        db.close()
     }
 }
 
