@@ -5,12 +5,14 @@ import java.util.Date //Documentacion https://developer.android.com/reference/ko
 //Clase la cual representa eventos
 
 class Evento {
-    var id_evento: Int = 0 //ID de la base de datos
+    var id_evento: Int? = 0 //ID de la base de datos
         get()= field
         set(value) {field = value }
     var fecha: Date = Date()//Fecha de el evento
         get() = field
         set(value) {field = value}
+    // formato: '0000-00-00 00:00'
+    // , no segundos
     var nombre: String = "Nombre de evento" //nombre del evento
         get() {return field}
         set(value) {field = value}
@@ -26,7 +28,17 @@ class Evento {
 
     //Constructores
     //Constructor completo
-    constructor(nombre: String, fecha: Date, descripcion: String, prioridad: Int, color: String){
+    constructor(id: Int, nombre: String, fecha: Date, descripcion: String, prioridad: Int, color: String){
+        this.id_evento = id
+        this.nombre = nombre
+        this.fecha = fecha
+        this.descripcion = descripcion
+        this.prioridad = prioridad
+        this.color = color
+    }
+
+    //Constructor sin id
+    constructor( nombre: String, fecha: Date, descripcion: String, prioridad: Int, color: String){
         this.nombre = nombre
         this.fecha = fecha
         this.descripcion = descripcion
@@ -46,6 +58,18 @@ class Evento {
         this.fecha = Date(anio, mes, dia, hora, minuto)
     }
 
+    //Constructor con fecha manual y con id
+    constructor(id: Int, nombre: String, dia: Int, mes: Int, anio: Int, hora: Int, minuto: Int,
+                descripcion: String, prioridad: Int, color: String){
+        this.id_evento = id
+        this.nombre = nombre
+        this.descripcion = descripcion
+        this.prioridad = prioridad
+        this.color = color
+
+        //Crear fecha
+        this.fecha = Date(anio, mes, dia, hora, minuto)
+    }
     //Constructor con solo cosas necesarias
     constructor(nombre: String, fecha: Date){
         this.nombre = nombre
