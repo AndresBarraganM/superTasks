@@ -143,6 +143,29 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         val query = "SELECT * FROM $TABLE_NAME_EVENTO WHERE 'id_evento'= $id_entrada"
         val cursor = db.rawQuery(query, null)
 
+        cursor.moveToNext()
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(ID_PRIMARIA_EVENTO))
+        val nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"))
+        val descripcion = cursor.getString(cursor.getColumnIndexOrThrow("desripcion"))
+        val prioridad = cursor.getInt(cursor.getColumnIndexOrThrow("prioridad"))
+        val color = cursor.getString(cursor.getColumnIndexOrThrow("color"))
+
+        //crear Date, fecha de entrada en 0000-00-00 00:00
+        val fechaTexto = cursor.getString(cursor.getColumnIndexOrThrow("fecha"))
+        //Separar para dia, mes, anio y hora
+        val dia = Integer.parseInt(fechaTexto.split("-")[0])
+        val mes = Integer.parseInt(fechaTexto.split("-")[1])
+        val anio = Integer.parseInt((fechaTexto.split("-")[2]).split(" ")[0])
+        val hora = Integer.parseInt((fechaTexto.split(" ")[1]).split(":")[0])
+        val minutos = Integer.parseInt(fechaTexto.split(":")[1])
+        val fecha = Date(anio,mes,dia,hora,minutos)
+
+        val evento = Evento(id, nombre,fecha, descripcion, prioridad, color)
+
+        cursor.close()
+        db.close()
+
+        return evento
     }
 }
 
