@@ -37,8 +37,14 @@ class EventosGuardados {
         //
 
         //En forma local
-        
-        return "Evento modificado correctamente"
+        //Obtener indice
+        var indice = eventos.indexOfFirst { it.equals(evento)}
+        //Obtener cual era el evento anterior
+        var eventoAnterior = eventos[indice]
+        //sustituir
+        eventos[indice] = eventoAnterior
+
+        return "Evento $eventoAnterior modificado a $evento"
     }
 
     // Función que muestra la cantidad de eventos que el usuario realizará
