@@ -7,7 +7,7 @@ import java.util.Calendar
 
 class EventosGuardados {
 
-    lateinit var eventos: MutableList<Evento>
+    var eventos: MutableList<Evento> = arrayListOf()
 
     //Función que guarda los futuros eventos a realizar
     fun agregarEvento(evento: Evento): String {
