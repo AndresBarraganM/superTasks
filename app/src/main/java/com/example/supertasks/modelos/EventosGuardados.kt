@@ -1,24 +1,43 @@
 package com.example.supertasks.modelos
 
+import com.example.supertasks.metodos_bd.DBHelper
+
+
 class EventosGuardados {
 
     lateinit var eventos: MutableList<Evento>
 
     //Función que guarda los futuros eventos a realizar
-    fun agregarEvento(evento: String): String {
-        //Aqui se guardará el evento Agregar
-        return "Evento agregado correctamente"
+    fun agregarEvento(evento: Evento): String {
+        //Agregar a base de datos
+        //DBHelper.crearEvento(evento)
+
+        //Agregar a lista local
+        eventos.add(evento)
+
+        return "Evento: ${evento.toString()} agregado correctamente"
     }
 
     // Funcion que guarda los eventos que el usuario quiera eliminar
-    fun eliminarEvento(evento: String): String {
-        // Aquí se guardará el evento Eliminar
-        return "Evento eliminado correctamente"
+    fun eliminarEvento(evento: Evento): String {
+        //Agregar a base de datos
+        //DBHelper.eliminarEvento(evento.id)
+
+        //Agregar a lista
+        eventos.remove(evento)
+
+        return "Evento: ${evento.toString()} eliminado correctamente"
     }
 
     // Funcion que modifica los eventos existentes del usuario
     fun modificarEvento(evento: String): String {
         //Aquí se guardará el evento modificar
+
+        //Realizar en BD
+        //
+
+        //En forma local
+        
         return "Evento modificado correctamente"
     }
 
