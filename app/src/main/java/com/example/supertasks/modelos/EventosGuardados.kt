@@ -77,7 +77,7 @@ class EventosGuardados {
 
         //Iterar sobre la lista propia
         eventos.forEach{
-            if (it.fecha.compareTo(ahora) > 0){ // es despues
+            if (it.fecha.compareTo(ahora) < 0){ // es despues
                 eventosPasados.add(it)
             }
 
