@@ -1,6 +1,8 @@
 package com.example.supertasks.modelos
 
 import com.example.supertasks.metodos_bd.DBHelper
+import java.util.Calendar
+
 
 
 class EventosGuardados {
@@ -48,15 +50,39 @@ class EventosGuardados {
     }
 
     // Función que muestra la cantidad de eventos que el usuario realizará
-    fun listaDeEventosFuturos(): Int {
-        val cantidad: Int = 5 // ejemplo de lo que regresará, no se tome como absoluto
-        return cantidad
+    fun listaDeEventosFuturos(): MutableList<Evento> {
+        var eventosFuturos: MutableList<Evento> = arrayListOf()
+
+
+        //Obtener dia actual
+        val ahora = Calendar.getInstance().time
+
+        //Iterar sobre la lista propia
+        eventos.forEach{
+            if (it.fecha.compareTo(ahora) > 0){ // es despues
+                eventosFuturos.add(it)
+            }
+
+        }
+        return eventosFuturos
     }
 
     // función que muestra la cantidad de eventos que ha hecho el usuario
-    fun listaDeEventosYaHechos(): Int {
-        val cantidad = 5 // Ejemplo de lo que regresará, no se tome como absoluto
-        return cantidad
+    fun listaDeEventosYaHechos(): MutableList<Evento> {
+        var eventosPasados: MutableList<Evento> = arrayListOf()
+
+
+        //Obtener dia actual
+        val ahora = Calendar.getInstance().time
+
+        //Iterar sobre la lista propia
+        eventos.forEach{
+            if (it.fecha.compareTo(ahora) > 0){ // es despues
+                eventosPasados.add(it)
+            }
+
+        }
+        return eventosPasados
     }
 
     // Función que muestra los eventos pendientes en los proximos dias-meses-años
