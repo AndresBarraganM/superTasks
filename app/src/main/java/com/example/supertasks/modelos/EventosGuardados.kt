@@ -2,7 +2,7 @@ package com.example.supertasks.modelos
 
 import com.example.supertasks.metodos_bd.DBHelper
 import java.util.Calendar
-
+import java.util.Date
 
 
 class EventosGuardados {
@@ -86,9 +86,49 @@ class EventosGuardados {
     }
 
     // Función que muestra los eventos pendientes en los proximos dias-meses-años
-    fun cantidadEventosPendientes(perido: String): String {
-        // Regresará el periodo en dias-meses-años
-        return "periodo" // Ejemplo de lo que regresará, no se tome como el absoluto.
+    fun cantidadEventosPendientes(periodo: String): Int {
+        var cantidadEventos: Int = 0
+
+        //Crear lista solo con las fechas
+        var listaFechas: MutableList<Date> = arrayListOf()
+
+        //Obtener dia actual
+        val ahora: Calendar = Calendar.getInstance()
+        var limiteSup: Calendar = Calendar.getInstance()
+
+        eventos.forEach{
+            listaFechas.add(
+                it.fecha)
+        }
+
+        //Variar limite superior
+        when(periodo){
+            ("dia") -> {
+                //Agregar dia segun ahora
+                limiteSup.add(Calendar.DAY_OF_MONTH,1);
+            }
+            ("semana") -> {
+                //Agregar semana segun ahora
+                limiteSup.add(Calendar.WEEK_OF_MONTH,1);
+            }
+            ("mes") -> {
+                //Agregar dia segun ahora
+                limiteSup.add(Calendar.MONTH,1);
+            }
+            else -> return -1
+        }
+
+        //Pasar a Date
+        val ahoraDate = ahora.time
+        val limSupDate = limiteSup.time
+
+        listaFechas.forEach{
+            if ((it.compareTo(ahoraDate) < 0) and (it.compareTo(limSupDate) > 0)){
+                cantidadEventos += 1
+            }
+        }
+
+        return cantidadEventos
     }
 
 
