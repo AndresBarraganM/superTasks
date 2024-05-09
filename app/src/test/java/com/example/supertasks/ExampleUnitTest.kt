@@ -25,7 +25,7 @@ class ExampleUnitTest {
         ev = Evento("nombre2",fecha = dat, "Es el segundo evento", 2, "azul")
         listaEventos.agregarEvento(ev)
 
-        dat = Date(2024,5,18,15,30)
+        dat = Date(2024,5,10,15,30)
         ev = Evento("nombre3",fecha = dat, "Es el tercer evento", 2, "amarillo")
         listaEventos.agregarEvento(ev)
 
@@ -33,7 +33,7 @@ class ExampleUnitTest {
         ev = Evento("nombre4",fecha = dat, "Es el cuarto evento", 2, "amarillo")
         listaEventos.agregarEvento(ev)
 
-        dat = Date(2024,5,10,18,27)
+        dat = Date(2024,6,10,18,27)
         ev = Evento("nombre5",fecha = dat, "Es el cuarto evento", 2, "amarillo")
         listaEventos.agregarEvento(ev)
 
@@ -42,5 +42,7 @@ class ExampleUnitTest {
         println(listaEventos.listaDeEventosYaHechos())
 
         //Eliminar datos
+        listaEventos.eliminarEvento(ev)
+        println(listaEventos.listaDeEventosFuturos())
     }
 }
