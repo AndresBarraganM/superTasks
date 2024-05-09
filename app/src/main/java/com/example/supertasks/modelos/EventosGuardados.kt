@@ -32,7 +32,7 @@ class EventosGuardados {
     }
 
     // Funcion que modifica los eventos existentes del usuario
-    fun modificarEvento(evento: String): String {
+    fun modificarEvento(id_evento_a_cambiar: Int, evento: Evento): String {
         //Aquí se guardará el evento modificar
 
         //Realizar en BD
@@ -40,7 +40,7 @@ class EventosGuardados {
 
         //En forma local
         //Obtener indice
-        var indice = eventos.indexOfFirst { it.equals(evento)}
+        var indice = eventos.indexOfFirst { it.id_evento == (evento.id_evento)}
         //Obtener cual era el evento anterior
         var eventoAnterior = eventos[indice]
         //sustituir
@@ -52,7 +52,6 @@ class EventosGuardados {
     // Función que muestra la cantidad de eventos que el usuario realizará
     fun listaDeEventosFuturos(): MutableList<Evento> {
         var eventosFuturos: MutableList<Evento> = arrayListOf()
-
 
         //Obtener dia actual
         val ahora = Calendar.getInstance().time
