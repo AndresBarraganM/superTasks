@@ -14,7 +14,7 @@ import java.util.Date
 class ExampleUnitTest {
     @Test
     fun funciona_eventos_guardados() {
-        var listaEventos: EventosGuardados = EventosGuardados()
+        val listaEventos = EventosGuardados()
 
         //Probar agregar objetos
         var dat = Date(2024,5,18,15,30)
