@@ -14,27 +14,60 @@
         android:animateLayoutChanges="true"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <ImageView
+                android:id="@+id/btnEditar1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                app:srcCompat="@drawable/editar">
+
+            </ImageView>
+
+            <FrameLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/frame_nivel_prioridad">
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tituloPendiente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="60dp"
+                android:textSize="24sp"
+                android:text="@string/tituloPendiente" />
+
+            <TextView
+                android:id="@+id/txtFechaPendiente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="75dp"
+                android:text="@string/txtFechaEvento"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imgReloj"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="65dp"
+                android:layout_marginStart="1dp"
+                app:srcCompat="@drawable/reloj" />
+
+
+        </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="116dp"
-        android:orientation="horizontal"
-        android:padding="6dp">
-
-        <ImageView
-            android:id="@+id/btnEditar1"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:paddingLeft="7dp"
-            android:paddingRight="7dp"
-            app:srcCompat="@drawable/editar">
-        </ImageView>
-
-
-    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

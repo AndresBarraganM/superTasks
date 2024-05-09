@@ -37,4 +37,6 @@
     <string name="btnRegresarActCalendar">REGRESAR</string>
     <string name="textCalendario">CALENDARIO</string>
     <string name="imgRegresarCalend">regresar</string>
+    <string name="tituloPendiente">Titulo del pendiente</string>
+    <string name="txtFechaEvento">fecha</string>
 </resources>

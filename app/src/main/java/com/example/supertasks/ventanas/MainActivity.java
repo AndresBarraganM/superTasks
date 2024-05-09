@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Funcionalidad para ver pendientes completados
+
         TextView txtVerTodosCompletados = findViewById(R.id.txtVerTodosCompletados);
         txtVerTodosCompletados.setOnClickListener(new View.OnClickListener() {
             @Override
