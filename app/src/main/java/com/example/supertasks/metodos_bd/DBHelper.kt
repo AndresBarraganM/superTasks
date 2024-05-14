@@ -68,7 +68,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
     }
      */
     //Metodos para crear
-    fun crearEvento(evento: Evento){
+    fun crearEvento(evento: Evento): Evento{
         val nombre = evento.nombre
         val descripcion = evento.descripcion
         val prioridad = evento.prioridad
@@ -95,15 +95,12 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
             put("color", color)
         }
 
-        /*
-        val instruccion: String = " " +
-                "INSERT INTO  $TABLE_NAME_EVENTO " +
-                "(nombre, descripcion, color)" +
-                "VALUES" +
-                "($nombre, $descripcion, $color)"
-        */
-        db.insert(TABLE_NAME_CATEGORIA, null, values)
+        val id = db.insert(TABLE_NAME_CATEGORIA, null, values)
         db.close()
+
+        evento.id_evento = id.toInt()
+
+        return evento
     }
 
     fun obtenerTodosEventos(): List<Evento>{
