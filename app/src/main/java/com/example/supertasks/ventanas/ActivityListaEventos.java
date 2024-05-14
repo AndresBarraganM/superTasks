@@ -1,7 +1,10 @@
 package com.example.supertasks.ventanas;
 
+
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,11 +27,25 @@ public class ActivityListaEventos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_eventos);
 
+        ImageView btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         // 13-05-2024
         ImageView btnRegresar = findViewById(R.id.btnBack);
         ImageView btnAgregar = findViewById(R.id.btnAdd);
 
+
         init();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     public void init() {
