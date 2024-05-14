@@ -1,6 +1,7 @@
 package com.example.supertasks.ventanas;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,10 @@ public class ActivityListaEventos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_eventos);
+
+        // 13-05-2024
+        ImageView btnRegresar = findViewById(R.id.btnBack);
+        ImageView btnAgregar = findViewById(R.id.btnAdd);
 
         init();
     }

@@ -2,6 +2,7 @@ package com.example.supertasks.ventanas;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,11 @@ public class ActivityCrearEventos extends AppCompatActivity {
 
         verCalendario = findViewById(R.id.verCalendario);
         verCalendario.setVisibility(View.GONE);
+
+        // 13-05-2024
+
+        TextView btnAgregar = findViewById(R.id.btnTxtAgregar);
+        ImageView btnRegresar = findViewById(R.id.btnRegresar2);
 
         verCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
