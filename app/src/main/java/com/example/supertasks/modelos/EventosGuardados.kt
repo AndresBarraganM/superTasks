@@ -114,7 +114,11 @@ class EventosGuardados {
                 //Agregar dia segun ahora
                 limiteSup.add(Calendar.MONTH,1);
             }
-            else -> return -1
+            else -> {
+                println("Error en metodo cantidad de eventos pendientes," +
+                        " se indico periodo no existente")
+                return -1
+            }
         }
 
         //Pasar a Date
@@ -122,7 +126,7 @@ class EventosGuardados {
         val limSupDate = limiteSup.time
 
         listaFechas.forEach{
-            if ((it.compareTo(ahoraDate) < 0) and (it.compareTo(limSupDate) > 0)){
+            if ((it.after(ahoraDate)) and (it.before(limSupDate))){
                 cantidadEventos += 1
             }
         }
