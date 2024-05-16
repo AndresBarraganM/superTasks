@@ -59,6 +59,7 @@
             android:inputType="textMultiLine"
             tools:ignore="LabelFor,SpeakableTextPresentCheck"
             android:autofillHints="" />
+
     </FrameLayout>
 
     <TextView

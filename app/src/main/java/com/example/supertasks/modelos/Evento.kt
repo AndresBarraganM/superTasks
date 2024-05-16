@@ -1,5 +1,6 @@
 package com.example.supertasks.modelos
 
+import java.util.Calendar
 import java.util.Date //Documentacion https://developer.android.com/reference/kotlin/java/util/Date
 
 //Clase la cual representa eventos
@@ -13,6 +14,13 @@ class Evento {
         set(value) {field = value}
     // formato: '0000-00-00 00:00'
     // , no segundos
+
+    fun setFechaFromDatePicker(anioSeleccionado: Int, mesSeleccionado: Int, diaSeleccionado: Int) {
+        val calendarioSeleccionado = Calendar.getInstance()
+        calendarioSeleccionado.set(anioSeleccionado, mesSeleccionado, diaSeleccionado)
+        this.fecha = calendarioSeleccionado.time
+    }
+
     var nombre: String = "Nombre de evento" //nombre del evento
         get() {return field}
         set(value) {field = value}
@@ -27,6 +35,12 @@ class Evento {
         set(value) {field = value}
 
     //Constructores
+
+    // Constructor por default
+    constructor(){
+
+    }
+
     //Constructor completo
     constructor(id: Int, nombre: String, fecha: Date, descripcion: String, prioridad: Int, color: String){
         this.id_evento = id
