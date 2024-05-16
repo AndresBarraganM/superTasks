@@ -18,35 +18,34 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         private const val TABLE_NAME_CATEGORIA = "Categoria"
         private const val ID_PRIMARIA_CATEGORIA = "id_categoria"
 
-        private const val  TABLE_NAME_RELACION_EVENT_CAT = "Evento-Categoria"
+        private const val  TABLE_NAME_RELACION_EVENT_CAT = "Evento_Categoria"
     }
 
     //Comando con el que creamos la base de datos,
-    val comando_crear_tabla_evento: String = """
-        CREATE TABLE $TABLE_NAME_EVENTO (
-          $ID_PRIMARIA_EVENTO INT NOT NULL,
+    val comando_crear_tabla_evento: String =
+        """CREATE TABLE $TABLE_NAME_EVENTO (
+          $ID_PRIMARIA_EVENTO INTEGER PRIMARY KEY AUTOINCREMENT,
           "fecha" TEXT NOT NULL DEFAULT '0000-00-00 00:00',
           "nombre" VARCHAR(20) NOT NULL DEFAULT 'Nombre de evento',
           "descripcion" VARCHAR(100)  DEFAULT 'No cuenta con descripcion',
           "prioridad" INT DEFAULT 1,
-          "color" VARCHAR(20),
-          PRIMARY KEY ($ID_PRIMARIA_EVENTO, AUTO_INCREMENT)
+          "color" VARCHAR(20)
           );
     """
 
-    val comando_crear_tabla_categoria: String = """CREATE TABLE $TABLE_NAME_CATEGORIA (
-        $ID_PRIMARIA_CATEGORIA	INTEGER NOT NULL,
+    val comando_crear_tabla_categoria: String =
+        """CREATE TABLE $TABLE_NAME_CATEGORIA (
+        $ID_PRIMARIA_CATEGORIA	INTEGER PRIMARY KEY AUTOINCREMENT,
         "nombre"	TEXT DEFAULT 'Nombre de la etiqueta',
         "descripcion"	TEXT DEFAULT 'No cuenta con descripcion',
-        "color"	TEXT,
-        PRIMARY KEY($ID_PRIMARIA_CATEGORIA, AUTO_INCREMENT)
-    )"""
+        "color"	TEXT
+        );"""
 
     val comando_crear_tabla_relacion_event_cat: String = """
-        CREATE TABLE $TABLE_NAME_RELACION_EVENT_CAT\ (
+        CREATE TABLE $TABLE_NAME_RELACION_EVENT_CAT (
         $ID_PRIMARIA_EVENTO	INTEGER NOT NULL,
         $ID_PRIMARIA_CATEGORIA	INTEGER NOT NULL
-)"""
+        );"""
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(comando_crear_tabla_evento)
@@ -95,7 +94,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
             put("color", color)
         }
 
-        val id = db.insert(TABLE_NAME_CATEGORIA, null, values)
+        val id = db.insert(TABLE_NAME_EVENTO, null, values)
         db.close()
 
         evento.id_evento = id.toInt()
@@ -112,7 +111,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(ID_PRIMARIA_EVENTO))
             val nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"))
-            val descripcion = cursor.getString(cursor.getColumnIndexOrThrow("desripcion"))
+            val descripcion = cursor.getString(cursor.getColumnIndexOrThrow("descripcion"))
             val prioridad = cursor.getInt(cursor.getColumnIndexOrThrow("prioridad"))
             val color = cursor.getString(cursor.getColumnIndexOrThrow("color"))
 
