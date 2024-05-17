@@ -21,6 +21,8 @@ import java.util.List;
 public class ActivityListaEventos extends AppCompatActivity {
 
     List<ListaEventos> elementos;
+    RecyclerView recyclerView;
+    ListaAdaptador listaAdaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +54,11 @@ public class ActivityListaEventos extends AppCompatActivity {
         elementos = new ArrayList<>();
         elementos.add(new ListaEventos("Limpiar casa", "20/02/2024"));
         elementos.add(new ListaEventos("Comer", "25/02/2024"));
+        elementos.add(new ListaEventos("Estudiar", "26/02/24"));
+        elementos.add(new ListaEventos("Ejercicio", "30/02/24"));
 
         ListaAdaptador listaAdaptador = new ListaAdaptador(elementos, this);
+
         RecyclerView recyclerView = findViewById(R.id.recyclerVwListaEventos);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
