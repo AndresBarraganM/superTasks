@@ -24,6 +24,7 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
         this.mDato = itemList;
     }
 
+
     @Override
     public int getItemCount() {return mDato.size();}
 
