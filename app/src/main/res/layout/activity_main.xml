@@ -151,6 +151,7 @@
         android:id="@+id/txtVerTodosEventos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="initListaEventos"
         android:text="@string/txtVerTodos"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -159,7 +160,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.335"
-        android:onClick="initListaEventos"/>
+        tools:ignore="TouchTargetSizeCheck" />
 
     <FrameLayout
         android:id="@+id/framePendientes1"

@@ -15,9 +15,9 @@ class Evento {
     // formato: '0000-00-00 00:00'
     // , no segundos
 
-    fun setFechaFromDatePicker(anioSeleccionado: Int, mesSeleccionado: Int, diaSeleccionado: Int) {
+    fun setFechaFromDatePicker(anioSeleccionado: Int, mesSeleccionado: Int, diaSeleccionado: Int, horaSeleccionada: Int, minutoSeleccionado: Int) {
         val calendarioSeleccionado = Calendar.getInstance()
-        calendarioSeleccionado.set(anioSeleccionado, mesSeleccionado, diaSeleccionado)
+        calendarioSeleccionado.set(anioSeleccionado, mesSeleccionado, diaSeleccionado, horaSeleccionada, minutoSeleccionado)
         this.fecha = calendarioSeleccionado.time
     }
 
