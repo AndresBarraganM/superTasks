@@ -26,7 +26,7 @@ import java.util.Locale;
 
 
 public class ActivityCrearEventos extends AppCompatActivity {
-    private EditText nombreEvento, descripcionEvento;
+    public EditText nombreEvento, descripcionEvento;
     private Evento evento = new Evento();
 
     int dia, mes, anio, hora, minuto;
@@ -38,6 +38,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
         ImageView verCalendario = findViewById(R.id.verCalendario);
         nombreEvento = findViewById(R.id.txtFieldNombre);
         TextView btnAgregar = findViewById(R.id.btnTxtAgregar);
+        descripcionEvento = findViewById(R.id.editTextTextMultiLine);
         ImageView btnRegresar = findViewById(R.id.btnRegresar2);
         Spinner comboPrioridad = findViewById(R.id.comboPrioridad);
         String [] opcionesCombo = {"Alta", "Media", "Baja"};
@@ -73,7 +74,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
                                                 String mesFormateado = (mesSeleccionado < 9) ? "0" + (mesSeleccionado + 1) : String.valueOf(mesSeleccionado + 1);
                                                 String horaFormateada = (horaSeleccionada < 10) ? "0" + horaSeleccionada : String.valueOf(horaSeleccionada);
                                                 String minutoFormateado = (minutoSeleccionado < 10) ? "0" + minutoSeleccionado : String.valueOf(minutoSeleccionado);
-                                                String fechaFormateada = (diaFormateado + "/" + mesFormateado + "/" + anioSeleccionado + "/" + horaFormateada + "/" + minutoFormateado);
+                                                String fechaFormateada = (anioSeleccionado + "/" + mesFormateado + "/" + diaFormateado + " " + horaFormateada + ":" + minutoFormateado);
 
                                                 Log.d("ActivityCrearEventos", "Fecha y hora seleccionadas: " +  fechaFormateada);
                                             }
