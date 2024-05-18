@@ -41,6 +41,20 @@ class BDTest {
             throw Error("No Evento encontrado con esta id")
         }
 
+        //PRUEBA, MODIFICAR EVENTO
+        println("PRUEBA MODIFICAR EVENTO")
+        println("Evento anteriormente: "+ eventos[2])
+
+        println("Modificaciones: ")
+        val nombreNuevo = "nombre nuevo"
+        eventos[2].nombre = nombreNuevo
+        println("Nombre: $nombreNuevo")
+
+        db.modificarEvento(eventos[2])
+
+        println("Nuevo evento: "+ db.obtenerEvento(eventos[2].id_evento))
+
+
         //PRUEBA, BORRAR EVENTO
         println("PRUEBA BORRAR EVENTO")
         id_prueba =  eventos[1].id_evento
