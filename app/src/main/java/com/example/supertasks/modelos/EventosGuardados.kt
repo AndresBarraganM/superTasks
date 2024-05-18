@@ -36,7 +36,7 @@ class EventosGuardados {
         //Aquí se guardará el evento modificar
 
         //Realizar en BD
-        //
+        db.modificarEvento(evento)
 
         //En forma local
         //Obtener indice
