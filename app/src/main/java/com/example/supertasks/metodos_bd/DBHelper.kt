@@ -163,6 +163,39 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         return evento
     }
 
+    fun modificarEvento(eventoNuevo: Evento){
+        val db = writableDatabase
+        //Obtener valores
+        val nombre = eventoNuevo.nombre
+        val descripcion = eventoNuevo.descripcion
+        val prioridad = eventoNuevo.prioridad
+        val color = eventoNuevo.color
+
+        //Obtener fecha en el formato deseado
+        val dia = (eventoNuevo.fecha.getDay()).toString()
+        val mes = (eventoNuevo.fecha.getMonth()).toString()
+        val anio = (eventoNuevo.fecha.getYear()).toString()
+
+        val hora = (eventoNuevo.fecha.getHours()).toString()
+        val minutos = (eventoNuevo.fecha.getMinutes()).toString()
+
+        //Saltamos segundos
+        val fecha = "$anio-$mes-$dia $hora:$minutos"
+
+        val values = ContentValues().apply{
+            put("fecha", fecha)
+            put("nombre", nombre)
+            put("descripcion", descripcion)
+            put("prioridad", prioridad)
+            put("color", color)
+        }
+        val clausulaWhere = "$ID_PRIMARIA_EVENTO = ?"
+        val clausulaArgs = arrayOf(eventoNuevo.id_evento.toString())
+
+        db.update(TABLE_NAME_EVENTO, values,clausulaWhere,clausulaArgs)
+        db.close()
+    }
+
     fun borrarEvento(id_entrada: Int){
         val db = writableDatabase
         val clausulaWhere  =  "$ID_PRIMARIA_EVENTO = ?"
