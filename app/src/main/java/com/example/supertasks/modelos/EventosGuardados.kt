@@ -8,14 +8,14 @@ import java.util.Date
 class EventosGuardados {
 
     var eventos: MutableList<Evento> = arrayListOf()
-
+    private lateinit var db: DBHelper
     //Función que guarda los futuros eventos a realizar
     fun agregarEvento(evento: Evento): String {
         //Agregar a base de datos
-        //DBHelper.crearEvento(evento)
+        val eventoNuevo = db.crearEvento(evento)
 
         //Agregar a lista local
-        eventos.add(evento)
+        eventos.add(eventoNuevo)
 
         return "Evento: ${evento.toString()} agregado correctamente"
     }
@@ -23,7 +23,7 @@ class EventosGuardados {
     // Funcion que guarda los eventos que el usuario quiera eliminar
     fun eliminarEvento(evento: Evento): String {
         //Agregar a base de datos
-        //DBHelper.eliminarEvento(evento.id)
+        evento.id_evento?.let { db.borrarEvento(it) }
 
         //Agregar a lista
         eventos.remove(evento)
