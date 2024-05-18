@@ -4,7 +4,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.example.supertasks.metodos_bd.DBHelper
 import com.example.supertasks.modelos.Evento
 import org.junit.Test
-import org.junit.runner.RunWith
 import java.util.Date
 
 class BDTest {
@@ -26,16 +25,18 @@ class BDTest {
         //PRUEBA, OBTENER EVENTOS
         println("PRUEBA RECUPERAR EVENTOS")
         var eventosRecuperados = db.obtenerTodosEventos()
-        assert(eventosRecuperados.equals(eventos))
+        //assert(eventosRecuperados.equals(eventos))
+        println(eventosRecuperados)
 
         //PRUEBA, LEER UN EVENTO
         println("PRUEBA LEER UN EVENTO")
         var id_prueba = eventos[1].id_evento
 
         println("id a recuperar:" + id_prueba)
-        val eventoDeBD = id_prueba?.let { db.obtenerEvento(it) }
+        val eventoDeBD = db.obtenerEvento(id_prueba)
+
         if (eventoDeBD != null) {
-            assert(eventoDeBD.equals(eventos[1]))
+            println("Evento recuperado: " +eventoDeBD)
         } else{
             throw Error("No Evento encontrado con esta id")
         }

@@ -1,26 +1,31 @@
 package com.example.supertasks
 
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.supertasks.metodos_bd.DBHelper
 import com.example.supertasks.modelos.Evento
 import com.example.supertasks.modelos.EventosGuardados
-import org.junit.Test
-import java.util.Calendar
 
+import org.junit.Test
+import org.junit.runner.RunWith
+
+import org.junit.Assert.*
+import java.util.Calendar
 import java.util.Date
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * Instrumented test, which will execute on an Android device.
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
-    //NO FUNCIONA DEVIDO A QUE NO PUEDE USAR CONTEXTO
-    //UTILIZA EL QUE SE ENCUENTRA EN ExampleInstrumentedTest
+@RunWith(AndroidJUnit4::class)
+class EventosGuardadosTest {
     @Test
-    fun funciona_eventos_guardados() {
+    fun testEventosGuardados() {
+        // Context of the app under test.
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val listaEventos = EventosGuardados()
-        var db = DBHelper(InstrumentationRegistry.getInstrumentation().getTargetContext())
+        var db = DBHelper(appContext)
 
 
         val ahora = Calendar.getInstance().time
@@ -67,7 +72,7 @@ class ExampleUnitTest {
 
         //Ver metodo para cantidad de eventos
         println("eventos por dia " +
-        listaEventos.cantidadEventosPendientes("dia"))
+                listaEventos.cantidadEventosPendientes("dia"))
         println("eventos por semana " +
                 listaEventos.cantidadEventosPendientes("semana"))
         println("eventos por mes " +
