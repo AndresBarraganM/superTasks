@@ -1,3 +1,4 @@
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,9 +11,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.supertasks.metodos_bd.DBHelper
+import com.example.supertasks.modelos.EventosGuardados
 import com.example.supertasks.ui.theme.SuperTasksTheme
 
 class MainActivity : ComponentActivity() {
+    val contexto = this
+    companion object {
+        private var instance: MainActivity? = null
+
+        fun applicationContext() : Context {
+            return instance!!.applicationContext
+        }
+        var  eventosLocales =EventosGuardados()
+        var db = DBHelper(applicationContext())
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

@@ -26,6 +26,8 @@ class EventosGuardadosTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val listaEventos = EventosGuardados()
         var db = DBHelper(appContext)
+        listaEventos.db = db
+
 
 
         val ahora = Calendar.getInstance().time
