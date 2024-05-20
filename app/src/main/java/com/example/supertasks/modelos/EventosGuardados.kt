@@ -8,7 +8,7 @@ import java.util.Date
 class EventosGuardados {
 
     var eventos: MutableList<Evento> = arrayListOf()
-    private lateinit var db: DBHelper
+    lateinit var db: DBHelper
     //Función que guarda los futuros eventos a realizar
     fun agregarEvento(evento: Evento): String {
         //Agregar a base de datos
@@ -44,7 +44,7 @@ class EventosGuardados {
         //Obtener cual era el evento anterior
         var eventoAnterior = eventos[indice]
         //sustituir
-        eventos[indice] = eventoAnterior
+        eventos[indice] = evento
 
         return "Evento $eventoAnterior modificado a $evento"
     }
