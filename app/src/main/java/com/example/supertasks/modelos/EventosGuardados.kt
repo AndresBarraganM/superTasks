@@ -134,5 +134,19 @@ class EventosGuardados {
         return cantidadEventos
     }
 
+    //Este metodo devuelve una lista con los eventos proximos mas cercanos, la catnidad es indicada
+    fun eventosCercanos(cantidad: Int): MutableList<Evento>{
+        //Lista que saldra
+        var listaLocal = listaDeEventosFuturos()
+        var listaSalida: MutableList<Evento> = arrayListOf()
+        // Si no encontro ninguno
+        if (listaLocal.size == 0) { return listaSalida }
+        listaLocal.sortBy{it.fecha}
+        //Recortar
+        for (i in cantidad-1 downTo 0){
+            listaSalida.add(listaLocal[i])
+        }
 
+        return listaSalida
+    }
 }

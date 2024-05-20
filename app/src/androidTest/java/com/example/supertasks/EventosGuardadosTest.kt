@@ -46,20 +46,20 @@ class EventosGuardadosTest {
         ev = Evento("nombre3", dat, "Es el tercer evento", 2, "amarillo")
         listaEventos.agregarEvento(ev)
 
-        dat = Date(124,3,18,10,30)
+        dat = Date(124,6,15,10,30)
         ev = Evento("nombre4", dat, "Es el cuarto evento", 2, "amarillo")
         listaEventos.agregarEvento(ev)
 
-        dat = Date(124,4,15,18,27)
+        dat = Date(124,6,18,18,27)
         ev = Evento("nombre5", dat, "Es el quinto evento", 2, "amarillo")
         listaEventos.agregarEvento(ev)
 
-        dat = Date(124,4,26,18,27)
+        dat = Date(124,6,26,18,27)
         ev = Evento("nombre6", dat, "Es el sexto evento", 2, "amarillo")
         listaEventos.agregarEvento(ev)
 
         dat = Date(0,0,0,18,27)
-        ev = Evento("Evento a borrar", dat, "Es el quinto evento", 2, "amarillo")
+        ev = Evento("Evento a borrar", dat, "Es el evento a borrar", 2, "amarillo")
         listaEventos.agregarEvento(ev)
         //Ver datos
         println(listaEventos.listaDeEventosFuturos())
@@ -79,5 +79,9 @@ class EventosGuardadosTest {
                 listaEventos.cantidadEventosPendientes("semana"))
         println("eventos por mes " +
                 listaEventos.cantidadEventosPendientes("mes"))
+
+        //Ver eventos por hacer
+        var listaCercana = listaEventos.eventosCercanos(2)
+        println ( listaCercana)
     }
 }
