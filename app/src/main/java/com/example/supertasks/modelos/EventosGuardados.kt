@@ -55,14 +55,14 @@ class EventosGuardados constructor(private var db: DBHelper) {
 
         fecha = Calendar.getInstance()
         //Para 2 semanas
-        fecha.add(Calendar.WEEK_OF_MONTH,1)
+        fecha.add(Calendar.WEEK_OF_MONTH,2)
         ev = Evento("Pagar agua", fecha.time, "Pagar recibo de agua",
             3, "azul")
         this.agregarEvento(ev)
 
         fecha = Calendar.getInstance()
         //Para 1 mes
-        fecha.add(Calendar.DAY_OF_MONTH,1)
+        fecha.add(Calendar.MONTH,1)
         ev = Evento("Comprar boletos para avion", fecha.time, "Comprar ticquet de vuelo de avion",
             2, "azul")
         this.agregarEvento(ev)
