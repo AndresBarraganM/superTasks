@@ -43,6 +43,8 @@ public class ActivityCrearEventos extends AppCompatActivity {
         TextView btnAgregar = findViewById(R.id.btnTxtAgregar);
         descripcionEvento = findViewById(R.id.editTextTextMultiLine);
         ImageView btnRegresar = findViewById(R.id.btnRegresar2);
+
+        // ComboBox nivel prioridad 10-05-2024
         Spinner comboPrioridad = findViewById(R.id.comboPrioridad);
         String [] opcionesCombo = {"Alta", "Media", "Baja"};
         ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opcionesCombo);
@@ -143,7 +145,8 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 EventosGuardados eventoGuardado = new EventosGuardados();
                 String nombre = nombreEvento.getText().toString();
                 String descripcion = descripcionEvento.getText().toString();
-                String mensajeEmergente = "Evento " + nombre + "\nFecha: " + fechaFormateada;
+                String prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
+                String mensajeEmergente = "Evento " + nombre + "\nPrioridad:" + prioridadSeleccionada + "\nFecha: " + fechaFormateada;
 
                 Toast.makeText(getApplicationContext(), mensajeEmergente, Toast.LENGTH_SHORT).show();
             }
