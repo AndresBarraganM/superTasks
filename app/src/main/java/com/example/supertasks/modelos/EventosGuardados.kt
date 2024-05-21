@@ -5,10 +5,10 @@ import java.util.Calendar
 import java.util.Date
 
 
-class EventosGuardados constructor(db : DBHelper) {
+class EventosGuardados constructor(private var db: DBHelper) {
 
     var eventos: MutableList<Evento> = arrayListOf()
-    private var db = db
+
     //Función que guarda los futuros eventos a realizar
     fun agregarEvento(evento: Evento): String {
         //Agregar a base de datos
@@ -17,7 +17,7 @@ class EventosGuardados constructor(db : DBHelper) {
         //Agregar a lista local
         eventos.add(eventoNuevo)
 
-        return "Evento: ${evento.toString()} agregado correctamente"
+        return "Evento: $evento agregado correctamente"
     }
 
     // Funcion que guarda los eventos que el usuario quiera eliminar
@@ -28,11 +28,11 @@ class EventosGuardados constructor(db : DBHelper) {
         //Agregar a lista
         eventos.remove(evento)
 
-        return "Evento: ${evento.toString()} eliminado correctamente"
+        return "Evento: ${evento} eliminado correctamente"
     }
 
     // Funcion que modifica los eventos existentes del usuario
-    fun modificarEvento(id_evento_a_cambiar: Int, evento: Evento): String {
+    fun modificarEvento( evento: Evento): String {
         //Aquí se guardará el evento modificar
 
         //Realizar en BD
@@ -40,9 +40,9 @@ class EventosGuardados constructor(db : DBHelper) {
 
         //En forma local
         //Obtener indice
-        var indice = eventos.indexOfFirst { it.id_evento == (evento.id_evento)}
+        val indice = eventos.indexOfFirst { it.id_evento == (evento.id_evento)}
         //Obtener cual era el evento anterior
-        var eventoAnterior = eventos[indice]
+        val eventoAnterior = eventos[indice]
         //sustituir
         eventos[indice] = evento
 
@@ -51,7 +51,7 @@ class EventosGuardados constructor(db : DBHelper) {
 
     // Función que muestra la cantidad de eventos que el usuario realizará
     fun listaDeEventosFuturos(): MutableList<Evento> {
-        var eventosFuturos: MutableList<Evento> = arrayListOf()
+        val eventosFuturos: MutableList<Evento> = arrayListOf()
 
         //Obtener dia actual
         val ahora = Calendar.getInstance().time
@@ -68,7 +68,7 @@ class EventosGuardados constructor(db : DBHelper) {
 
     // función que muestra la cantidad de eventos que ha hecho el usuario
     fun listaDeEventosYaHechos(): MutableList<Evento> {
-        var eventosPasados: MutableList<Evento> = arrayListOf()
+        val eventosPasados: MutableList<Evento> = arrayListOf()
 
 
         //Obtener dia actual
@@ -86,14 +86,14 @@ class EventosGuardados constructor(db : DBHelper) {
 
     // Función que muestra los eventos pendientes en los proximos dias-meses-años
     fun cantidadEventosPendientes(periodo: String): Int {
-        var cantidadEventos: Int = 0
+        var cantidadEventos = 0
 
         //Crear lista solo con las fechas
-        var listaFechas: MutableList<Date> = arrayListOf()
+        val listaFechas: MutableList<Date> = arrayListOf()
 
         //Obtener dia actual
         val ahora: Calendar = Calendar.getInstance()
-        var limiteSup: Calendar = Calendar.getInstance()
+        val limiteSup: Calendar = Calendar.getInstance()
 
         eventos.forEach{
             listaFechas.add(
@@ -104,15 +104,15 @@ class EventosGuardados constructor(db : DBHelper) {
         when(periodo){
             ("dia") -> {
                 //Agregar dia segun ahora
-                limiteSup.add(Calendar.DAY_OF_MONTH,1);
+                limiteSup.add(Calendar.DAY_OF_MONTH,1)
             }
             ("semana") -> {
                 //Agregar semana segun ahora
-                limiteSup.add(Calendar.WEEK_OF_MONTH,1);
+                limiteSup.add(Calendar.WEEK_OF_MONTH,1)
             }
             ("mes") -> {
                 //Agregar dia segun ahora
-                limiteSup.add(Calendar.MONTH,1);
+                limiteSup.add(Calendar.MONTH,1)
             }
             else -> {
                 println("Error en metodo cantidad de eventos pendientes," +
@@ -137,8 +137,8 @@ class EventosGuardados constructor(db : DBHelper) {
     //Este metodo devuelve una lista con los eventos proximos mas cercanos, la catnidad es indicada
     fun eventosCercanos(cantidad: Int): MutableList<Evento>{
         //Lista que saldra
-        var listaLocal = listaDeEventosFuturos()
-        var listaSalida: MutableList<Evento> = arrayListOf()
+        val listaLocal = listaDeEventosFuturos()
+        val listaSalida: MutableList<Evento> = arrayListOf()
         // Si no encontro ninguno
         if (listaLocal.size == 0) { return listaSalida }
         listaLocal.sortBy{it.fecha}
