@@ -1,7 +1,15 @@
 package com.example.supertasks.ventanas;
+
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,7 +24,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import com.example.supertasks.R;
 import com.example.supertasks.metodos_bd.DBHelper;
 import com.example.supertasks.modelos.Evento;
@@ -24,11 +36,12 @@ import com.example.supertasks.modelos.EventosGuardados;
 
 import java.util.Calendar;
 
-
 public class ActivityCrearEventos extends AppCompatActivity {
+    private static final String CHANNEL_ID = "NEW";
+    private PendingIntent pendingIntent;
     private EditText nombreEvento, descripcionEvento;
-    private String fechaFormateada, prioridadSeleccionada;
-    public Calendar fecha = Calendar.getInstance();
+    private String fechaFormateada;
+    private Calendar fecha = Calendar.getInstance();
     private Evento evento = new Evento();
 
     int dia, mes, anio, hora, minuto;
@@ -37,21 +50,32 @@ public class ActivityCrearEventos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_evento);
+
+        TextView btnTxtAgregar = findViewById(R.id.btnTxtAgregar);
+
+        btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    createNotificationChannel();
+                }
+                showNewNotification();
+            }
+        });
+
         ImageView verCalendario = findViewById(R.id.verCalendario);
         nombreEvento = findViewById(R.id.txtFieldNombre);
-        TextView btnAgregar = findViewById(R.id.btnTxtAgregar);
         descripcionEvento = findViewById(R.id.editTextTextMultiLine);
         ImageView btnRegresar = findViewById(R.id.btnRegresar2);
 
-        // ComboBox nivel prioridad 10-05-2024
+        // ComboBox nivel prioridad
         Spinner comboPrioridad = findViewById(R.id.comboPrioridad);
-        String [] opcionesCombo = {"Alta", "Media", "Baja"};
+        String[] opcionesCombo = {"Alta", "Media", "Baja"};
         ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opcionesCombo);
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         comboPrioridad.setAdapter(adaptador);
 
-        // Establecer fecha 16-05-2024
-        // Se agrego la hora 17-05-2024
+        // Establecer fecha y hora
         verCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +85,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 hora = fecha.get(Calendar.HOUR_OF_DAY);
                 minuto = fecha.get(Calendar.MINUTE);
 
-                // Crear y mostrar el DatePickerDialog
                 DatePickerDialog dpd = new DatePickerDialog(ActivityCrearEventos.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -70,16 +93,15 @@ public class ActivityCrearEventos extends AppCompatActivity {
                                         new TimePickerDialog.OnTimeSetListener() {
                                             @Override
                                             public void onTimeSet(TimePicker view, int horaSeleccionada, int minutoSeleccionado) {
-                                                // Establecer la fecha y hora seleccionadas
                                                 evento.setFechaFromDatePicker(anioSeleccionado, mesSeleccionado, diaSeleccionado, horaSeleccionada, minutoSeleccionado);
 
                                                 String diaFormateado = (diaSeleccionado < 10) ? "0" + diaSeleccionado : String.valueOf(diaSeleccionado);
                                                 String mesFormateado = (mesSeleccionado < 9) ? "0" + (mesSeleccionado + 1) : String.valueOf(mesSeleccionado + 1);
                                                 String horaFormateada = (horaSeleccionada < 10) ? "0" + horaSeleccionada : String.valueOf(horaSeleccionada);
                                                 String minutoFormateado = (minutoSeleccionado < 10) ? "0" + minutoSeleccionado : String.valueOf(minutoSeleccionado);
-                                                fechaFormateada = (anioSeleccionado + "/" + mesFormateado + "/" + diaFormateado + " " + horaFormateada + ":" + minutoFormateado);
+                                                fechaFormateada = anioSeleccionado + "/" + mesFormateado + "/" + diaFormateado + " " + horaFormateada + ":" + minutoFormateado;
 
-                                                Log.d("ActivityCrearEventos", "Fecha y hora seleccionadas: " +  fechaFormateada);
+                                                Log.d("ActivityCrearEventos", "Fecha y hora seleccionadas: " + fechaFormateada);
                                             }
                                         }, hora, minuto, true);
                                 tpd.show();
@@ -89,16 +111,14 @@ public class ActivityCrearEventos extends AppCompatActivity {
             }
         });
 
-        // Obtener el texto ingresado en el nombre de evento 16-05-2024
+        // Obtener el texto ingresado en el nombre de evento
         nombreEvento.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -109,16 +129,14 @@ public class ActivityCrearEventos extends AppCompatActivity {
             }
         });
 
-        // Obtener el texto ingresado en descripcion 16-05-2024
+        // Obtener el texto ingresado en descripcion
         descripcionEvento.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -132,38 +150,68 @@ public class ActivityCrearEventos extends AppCompatActivity {
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Aquí defines la acción que deseas que ocurra al presionar btnRegresar2
                 Intent intent = new Intent(ActivityCrearEventos.this, MainActivityJava.class);
                 startActivity(intent);
             }
         });
 
-        btnAgregar.setOnClickListener(new View.OnClickListener() {
+        btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                EventosGuardados eventoGuardado = new EventosGuardados();
-//                String nombre = nombreEvento.getText().toString();
-//                String descripcion = descripcionEvento.getText().toString();
-//                prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
-//                String mensajeEmergente = "Evento " + nombre + "\nPrioridad:" + prioridadSeleccionada + "\nFecha: " + fechaFormateada;
-//                Toast.makeText(getApplicationContext(), mensajeEmergente, Toast.LENGTH_LONG).show();
-
-                // 20-05-2024
-                Evento evento = new Evento();
                 String nombre = nombreEvento.getText().toString();
                 String descripcion = descripcionEvento.getText().toString();
                 String prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
+
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
-                // 20-05-2024
+
                 DBHelper dbHelper = new DBHelper(getApplicationContext());
                 EventosGuardados eventoNuevo = new EventosGuardados(dbHelper);
                 String mensaje = eventoNuevo.agregarEvento(evento);
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
             }
         });
+    }
 
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "NEW", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void showNewNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+                return;
+            }
+        }
+
+        setPendingIntent(ActivityCrearEventos.class);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                .setContentTitle("Mi Primera Notificación")
+                .setContentText("Esta es una prueba de notificación")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+        managerCompat.notify(1, builder.build());
+    }
+
+    private void setPendingIntent(Class<?> clsActivity) {
+        Intent intent = new Intent(this, clsActivity);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(clsActivity);
+        stackBuilder.addNextIntent(intent);
+        pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private int convertirPrioridad(String prioridadSeleccionada) {
@@ -182,5 +230,17 @@ public class ActivityCrearEventos extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                showNewNotification();
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
