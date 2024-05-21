@@ -1,6 +1,4 @@
 package com.example.supertasks.ventanas;
-import com.example.supertasks.modelos.EventosGuardados;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -20,10 +18,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.supertasks.R;
+import com.example.supertasks.metodos_bd.DBHelper;
 import com.example.supertasks.modelos.Evento;
+import com.example.supertasks.modelos.EventosGuardados;
 
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class ActivityCrearEventos extends AppCompatActivity {
@@ -134,7 +133,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Aquí defines la acción que deseas que ocurra al presionar btnRegresar2
-                Intent intent = new Intent(ActivityCrearEventos.this, MainActivity.class);
+                Intent intent = new Intent(ActivityCrearEventos.this, MainActivityJava.class);
                 startActivity(intent);
             }
         });
@@ -149,6 +148,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
 //                String mensajeEmergente = "Evento " + nombre + "\nPrioridad:" + prioridadSeleccionada + "\nFecha: " + fechaFormateada;
 //                Toast.makeText(getApplicationContext(), mensajeEmergente, Toast.LENGTH_LONG).show();
 
+                // 20-05-2024
                 Evento evento = new Evento();
                 String nombre = nombreEvento.getText().toString();
                 String descripcion = descripcionEvento.getText().toString();
@@ -156,10 +156,11 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
-                EventosGuardados eventoNuevo = new EventosGuardados(ActivityCrearEventos.this);
+                // 20-05-2024
+                DBHelper dbHelper = new DBHelper(getApplicationContext());
+                EventosGuardados eventoNuevo = new EventosGuardados(dbHelper);
                 String mensaje = eventoNuevo.agregarEvento(evento);
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
-                // Modificado
             }
         });
 

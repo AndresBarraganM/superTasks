@@ -1,3 +1,5 @@
+package com.example.supertasks.ventanas
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.supertasks.metodos_bd.DBHelper
 import com.example.supertasks.modelos.EventosGuardados
 import com.example.supertasks.ui.theme.SuperTasksTheme
@@ -19,6 +19,10 @@ class MainActivity : ComponentActivity() {
     val contexto = this
     companion object {
         private var instance: MainActivity? = null
+
+        fun getInstance(): MainActivity? {
+            return instance
+        }
 
         fun applicationContext() : Context {
             return instance!!.applicationContext

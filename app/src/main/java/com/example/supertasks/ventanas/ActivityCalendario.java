@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.supertasks.R;
-import java.util.Calendar;
 
 public class ActivityCalendario extends AppCompatActivity {
 
@@ -32,7 +31,7 @@ public class ActivityCalendario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 26/04/2024
-                Intent intent = new Intent(ActivityCalendario.this, MainActivity.class);
+                Intent intent = new Intent(ActivityCalendario.this, MainActivityJava.class);
                 startActivity(intent);
             }
         });

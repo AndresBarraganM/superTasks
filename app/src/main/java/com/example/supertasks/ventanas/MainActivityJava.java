@@ -9,11 +9,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.supertasks.R;
+import com.example.supertasks.metodos_bd.DBHelper;
 import com.example.supertasks.modelos.EventosGuardados;
 
-import org.w3c.dom.Text;
+public class MainActivityJava extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
+    DBHelper dBHelper = new DBHelper(getApplicationContext());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         btnCrearTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityCrearEventos.class);
+                Intent intent = new Intent(MainActivityJava.this, ActivityCrearEventos.class);
                 startActivity(intent);
 
             }
@@ -38,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 26/04/2024
-                Intent intent = new Intent(MainActivity.this, ActivityCalendario.class);
+                Intent intent = new Intent(MainActivityJava.this, ActivityCalendario.class);
                 startActivity(intent);
             }
         });
         // Se inicializa la clase EventosGuardados
-        EventosGuardados eventosGuardados = new EventosGuardados();
+        EventosGuardados eventosGuardados = new EventosGuardados(dBHelper);
 
         // 20/05/2024 -- funcionalidad de ver el proximo pendiente de mañana
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         txtVerTodosEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityListaEventos.class);
+                Intent intent = new Intent(MainActivityJava.this, ActivityListaEventos.class);
                 startActivity(intent);
             }
         });
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         txtVerTodosCompletados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityListaEventos.class);
+                Intent intent = new Intent(MainActivityJava.this, ActivityListaEventos.class);
                 startActivity(intent);
             }
         });
