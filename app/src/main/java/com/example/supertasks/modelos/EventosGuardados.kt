@@ -126,7 +126,7 @@ class EventosGuardados {
         val limSupDate = limiteSup.time
 
         listaFechas.forEach{
-            if ((it.after(ahoraDate)) and (it.before(limSupDate))){
+            if ((it.after(ahoraDate)) && (it.before(limSupDate))){
                 cantidadEventos += 1
             }
         }

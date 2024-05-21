@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.supertasks.R;
+import com.example.supertasks.modelos.EventosGuardados;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +42,26 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // Se inicializa la clase EventosGuardados
+        EventosGuardados eventosGuardados = new EventosGuardados();
+
+        // 20/05/2024 -- funcionalidad de ver el proximo pendiente de mañana
+
+        TextView txtContadorEventos = findViewById(R.id.contadorEventos);
+        int eventosDia = eventosGuardados.cantidadEventosPendientes("dia");
+        txtContadorEventos.setText(String.valueOf(eventosDia));
+
+        // 20/05/2024 -- funcionalidad de ver los pendientes de la semana
+
+        TextView txtContadorEventos2 = findViewById(R.id.contadorEventos2);
+        int eventosSemana = eventosGuardados.cantidadEventosPendientes("semana");
+        txtContadorEventos2.setText(String.valueOf(eventosSemana));
+
+        // 20/05/2024 -- funcionalidad de ver los proximos pendientes del mes
+
+        TextView txtContadorEventos3 = findViewById(R.id.contadorEventos3);
+        int eventosMes = eventosGuardados.cantidadEventosPendientes("mes");
+        txtContadorEventos3.setText(String.valueOf(eventosMes));
 
         // 02/05/2024 -- Funcionalidad boton Ver Todos //
 
