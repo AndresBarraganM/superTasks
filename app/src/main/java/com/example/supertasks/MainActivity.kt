@@ -23,8 +23,9 @@ class MainActivity : ComponentActivity() {
         fun applicationContext() : Context {
             return instance!!.applicationContext
         }
-        var  eventosLocales =EventosGuardados()
         var db = DBHelper(applicationContext())
+
+        var  eventosLocales =EventosGuardados(db)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
