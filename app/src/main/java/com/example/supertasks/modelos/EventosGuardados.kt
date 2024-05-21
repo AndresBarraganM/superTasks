@@ -9,6 +9,84 @@ class EventosGuardados constructor(private var db: DBHelper) {
 
     var eventos: MutableList<Evento> = arrayListOf()
 
+    init
+    {
+        //Eventos creados desde un inicio
+        /*Crear 6 eventos futuros, 3 eventos pasados
+        futuro
+          1 para 5 min
+          2 para 24 horas despues
+          1 para 1 semana
+          1 para 2 semanas
+          1 para 1 mes
+
+        pasado
+          1 hace 1 dia
+          2 hace 1 semana
+        */
+
+        var fecha: Calendar = Calendar.getInstance()
+        var ev: Evento
+                //FUTURO
+        //Para 5 min
+        fecha.add(Calendar.MINUTE,5)
+        ev = Evento("Presentar proyecto", fecha.time, "Presentar el trabajo de topicos",
+            1, "amarillo")
+        this.agregarEvento(ev)
+
+        fecha = Calendar.getInstance()
+        //Para 1 dia
+        fecha.add(Calendar.DAY_OF_MONTH,1)
+        ev = Evento("Estudiar para metodos numericos", fecha.time, "Repasar para el examen de esta unidad",
+            3, "rojo")
+        this.agregarEvento(ev)
+
+        fecha.add(Calendar.DAY_OF_MONTH,1)
+        ev = Evento("Entregar examen", fecha.time, "Entregar el examende simulacion",
+            1, "amarillo")
+        this.agregarEvento(ev)
+
+        fecha = Calendar.getInstance()
+        //Para 1 semana
+        fecha.add(Calendar.WEEK_OF_MONTH,1)
+        ev = Evento("Paquete amazon", fecha.time, "Estar al pendiente de un paquete de amazon",
+            2, "amarillo")
+        this.agregarEvento(ev)
+
+        fecha = Calendar.getInstance()
+        //Para 2 semanas
+        fecha.add(Calendar.WEEK_OF_MONTH,1)
+        ev = Evento("Pagar agua", fecha.time, "Pagar recibo de agua",
+            3, "azul")
+        this.agregarEvento(ev)
+
+        fecha = Calendar.getInstance()
+        //Para 1 mes
+        fecha.add(Calendar.DAY_OF_MONTH,1)
+        ev = Evento("Comprar boletos para avion", fecha.time, "Comprar ticquet de vuelo de avion",
+            2, "azul")
+        this.agregarEvento(ev)
+        fecha = Calendar.getInstance()
+
+                //PASADO
+        //Para 1 dia
+        fecha.add(Calendar.DAY_OF_MONTH,-1)
+        ev = Evento("Preparar presentacion de topcos", fecha.time, "Prepararse para el examen de topicos",
+            2, "rojo")
+        this.agregarEvento(ev)
+
+        fecha = Calendar.getInstance()
+        //Para 1 semana
+        fecha.add(Calendar.WEEK_OF_MONTH,-1)
+        ev = Evento("Realizar pruebas de programa", fecha.time, "Probar el programa de topicos y documentar",
+            3, "amarillo")
+        this.agregarEvento(ev)
+
+        ev = Evento("Limpiar hogar", fecha.time, "Tener la casa limpia para las visitas",
+            2, "azul")
+        this.agregarEvento(ev)
+    }
+
     //Función que guarda los futuros eventos a realizar
     fun agregarEvento(evento: Evento): String {
         //Agregar a base de datos
