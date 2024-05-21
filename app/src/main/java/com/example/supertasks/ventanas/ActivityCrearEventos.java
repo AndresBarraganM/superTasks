@@ -28,7 +28,7 @@ import java.util.Date;
 
 public class ActivityCrearEventos extends AppCompatActivity {
     private EditText nombreEvento, descripcionEvento;
-    private String fechaFormateada;
+    private String fechaFormateada, prioridadSeleccionada;
     public Calendar fecha = Calendar.getInstance();
     private Evento evento = new Evento();
 
@@ -142,16 +142,41 @@ public class ActivityCrearEventos extends AppCompatActivity {
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventosGuardados eventoGuardado = new EventosGuardados();
+//                EventosGuardados eventoGuardado = new EventosGuardados();
+//                String nombre = nombreEvento.getText().toString();
+//                String descripcion = descripcionEvento.getText().toString();
+//                prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
+//                String mensajeEmergente = "Evento " + nombre + "\nPrioridad:" + prioridadSeleccionada + "\nFecha: " + fechaFormateada;
+//                Toast.makeText(getApplicationContext(), mensajeEmergente, Toast.LENGTH_LONG).show();
+
+                Evento evento = new Evento();
                 String nombre = nombreEvento.getText().toString();
                 String descripcion = descripcionEvento.getText().toString();
                 String prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
-                String mensajeEmergente = "Evento " + nombre + "\nPrioridad:" + prioridadSeleccionada + "\nFecha: " + fechaFormateada;
 
-                Toast.makeText(getApplicationContext(), mensajeEmergente, Toast.LENGTH_SHORT).show();
+                evento.setNombre(nombre);
+                evento.setDescripcion(descripcion);
+                evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
+
+                EventosGuardados eventoNuevo = new EventosGuardados();
+                String mensaje = eventoNuevo.agregarEvento(evento);
+                Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+
+    private int convertirPrioridad(String prioridadSeleccionada) {
+        switch (prioridadSeleccionada) {
+            case "Alta":
+                return 1;
+            case "Media":
+                return 2;
+            case "Baja":
+                return 3;
+            default:
+                return 0;
+        }
     }
 
     @Override
