@@ -40,7 +40,9 @@ public class ActivityCrearEventos extends AppCompatActivity {
     private static final String CHANNEL_ID = "NEW";
     private PendingIntent pendingIntent;
     private EditText nombreEvento, descripcionEvento;
-    private String fechaFormateada;
+
+    // Variables para almacenar los datos de los eventos
+    private String nombre, descripcion, prioridadSeleccionada, fechaFormateada;
     private Calendar fecha = Calendar.getInstance();
     private Evento evento = new Evento();
 
@@ -158,9 +160,9 @@ public class ActivityCrearEventos extends AppCompatActivity {
         btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre = nombreEvento.getText().toString();
-                String descripcion = descripcionEvento.getText().toString();
-                String prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
+                nombre = nombreEvento.getText().toString();
+                descripcion = descripcionEvento.getText().toString();
+                prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
@@ -211,15 +213,14 @@ public class ActivityCrearEventos extends AppCompatActivity {
     }
 
     private int convertirPrioridad(String prioridadSeleccionada) {
-        switch (prioridadSeleccionada) {
-            case "Alta":
-                return 1;
-            case "Media":
-                return 2;
-            case "Baja":
-                return 3;
-            default:
-                return 0;
+        if ("Alta".equals(prioridadSeleccionada)) {
+            return 1;
+        } else if ("Media".equals(prioridadSeleccionada)) {
+            return 2;
+        } else if ("Baja".equals(prioridadSeleccionada)) {
+            return 3;
+        } else {
+            return 0;
         }
     }
 
