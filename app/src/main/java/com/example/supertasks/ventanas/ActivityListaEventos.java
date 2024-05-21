@@ -1,6 +1,7 @@
 package com.example.supertasks.ventanas;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,7 +40,23 @@ public class ActivityListaEventos extends AppCompatActivity {
 
         // 13-05-2024
         ImageView btnRegresar = findViewById(R.id.btnBack);
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityListaEventos.this, MainActivityJava.class);
+                startActivity(intent);
+
+            }
+        });
+
         ImageView btnAgregar = findViewById(R.id.btnAdd);
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityListaEventos.this, ActivityCrearEventos.class);
+                startActivity(intent);
+            }
+        });
 
 
         init();
@@ -64,4 +81,8 @@ public class ActivityListaEventos extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(listaAdaptador);
     }
+
+
+
+
 }
