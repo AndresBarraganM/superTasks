@@ -46,6 +46,9 @@ class MainActivity : ComponentActivity() {
         Log.d("MainActivity", "DB instance: ${Companion.db.toString()}") // Imprime en el logcat
         eventosLocales = EventosGuardados(Companion.db)
         Log.d("MainActivity", "Eventos locales instance: ${Companion.eventosLocales.toString()}")
+        val intent = Intent(this@MainActivity, MainActivityJava::class.java)
+        startActivity(intent)
+
         setContent {
             SuperTasksTheme {
                 Surface(
@@ -56,8 +59,7 @@ class MainActivity : ComponentActivity() {
                     Text(
                         text = "Ola",
                         modifier = Modifier.clickable {
-                            val intent = Intent(this@MainActivity, MainActivityJava::class.java)
-                            startActivity(intent)
+
                         }
                     )
                 }
