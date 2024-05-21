@@ -153,11 +153,9 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 String nombre = nombreEvento.getText().toString();
                 String descripcion = descripcionEvento.getText().toString();
                 String prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
-
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
-
                 EventosGuardados eventoNuevo = new EventosGuardados();
                 String mensaje = eventoNuevo.agregarEvento(evento);
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
