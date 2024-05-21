@@ -53,7 +53,7 @@
         app:layout_constraintVertical_bias="0.551">
 
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/editarDescripcion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints=""
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtFieldNombre"
+        android:id="@+id/txtFieldEditarNombre"
         android:layout_width="343dp"
         android:layout_height="48dp"
         android:autofillHints=""
@@ -149,7 +149,7 @@
         app:layout_constraintVertical_bias="0.226" />
 
     <TextView
-        android:id="@+id/btnTxtAgregar"
+        android:id="@+id/btnTxtAceptar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btnAceptar"
@@ -173,7 +173,7 @@
         app:layout_constraintVertical_bias="0.718">
 
         <Spinner
-            android:id="@+id/comboPrioridad"
+            android:id="@+id/comboEditarPrioridad"
             android:layout_width="168dp"
             android:layout_height="match_parent"
             tools:ignore="TouchTargetSizeCheck" />

@@ -55,15 +55,15 @@ public class ActivityCrearEventos extends AppCompatActivity {
         EventosGuardados eventoLocal = MainActivity.eventosLocales;
         TextView btnTxtAgregar = findViewById(R.id.btnTxtAgregar);
 
-        btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    createNotificationChannel();
-                }
-                showNewNotification();
-            }
-        });
+//        btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    createNotificationChannel();
+//                }
+//                showNewNotification();
+//            }
+//        });
 
         ImageView verCalendario = findViewById(R.id.verCalendario);
         nombreEvento = findViewById(R.id.txtFieldNombre);
@@ -166,7 +166,10 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
-                String mensaje = eventoLocal.agregarEvento(evento);
+                String guardarEvento = eventoLocal.agregarEvento(evento);
+                String mensaje = "Nombre: " + evento.getNombre() +
+                        "\nFecha: " + evento.getFecha() +
+                        "\nPrioridad: " + evento.getPrioridad();
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
             }
         });
