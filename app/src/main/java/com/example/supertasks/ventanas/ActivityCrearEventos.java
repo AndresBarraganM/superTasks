@@ -1,4 +1,5 @@
 package com.example.supertasks.ventanas;
+import com.example.supertasks.modelos.EventosGuardados;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -15,18 +16,20 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.supertasks.R;
 import com.example.supertasks.modelos.Evento;
 
 import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+import java.util.Date;
 
 
 public class ActivityCrearEventos extends AppCompatActivity {
-    public EditText nombreEvento, descripcionEvento;
+    private EditText nombreEvento, descripcionEvento;
+    private String fechaFormateada;
+    public Calendar fecha = Calendar.getInstance();
     private Evento evento = new Evento();
 
     int dia, mes, anio, hora, minuto;
@@ -51,7 +54,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
         verCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar fecha = Calendar.getInstance();
                 dia = fecha.get(Calendar.DAY_OF_MONTH);
                 mes = fecha.get(Calendar.MONTH);
                 anio = fecha.get(Calendar.YEAR);
@@ -74,7 +76,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
                                                 String mesFormateado = (mesSeleccionado < 9) ? "0" + (mesSeleccionado + 1) : String.valueOf(mesSeleccionado + 1);
                                                 String horaFormateada = (horaSeleccionada < 10) ? "0" + horaSeleccionada : String.valueOf(horaSeleccionada);
                                                 String minutoFormateado = (minutoSeleccionado < 10) ? "0" + minutoSeleccionado : String.valueOf(minutoSeleccionado);
-                                                String fechaFormateada = (anioSeleccionado + "/" + mesFormateado + "/" + diaFormateado + " " + horaFormateada + ":" + minutoFormateado);
+                                                fechaFormateada = (anioSeleccionado + "/" + mesFormateado + "/" + diaFormateado + " " + horaFormateada + ":" + minutoFormateado);
 
                                                 Log.d("ActivityCrearEventos", "Fecha y hora seleccionadas: " +  fechaFormateada);
                                             }
@@ -132,6 +134,18 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 // Aquí defines la acción que deseas que ocurra al presionar btnRegresar2
                 Intent intent = new Intent(ActivityCrearEventos.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventosGuardados eventoGuardado = new EventosGuardados();
+                String nombre = nombreEvento.getText().toString();
+                String descripcion = descripcionEvento.getText().toString();
+                String mensajeEmergente = "Evento " + nombre + "\nFecha: " + fechaFormateada;
+
+                Toast.makeText(getApplicationContext(), mensajeEmergente, Toast.LENGTH_SHORT).show();
             }
         });
 
