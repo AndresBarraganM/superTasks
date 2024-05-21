@@ -24,9 +24,8 @@ class EventosGuardadosTest {
     fun testEventosGuardados() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        val listaEventos = EventosGuardados()
         var db = DBHelper(appContext)
-        listaEventos.db = db
+        val listaEventos = EventosGuardados(db)
 
 
 

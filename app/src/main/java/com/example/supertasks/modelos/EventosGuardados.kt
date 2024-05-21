@@ -5,10 +5,10 @@ import java.util.Calendar
 import java.util.Date
 
 
-class EventosGuardados {
+class EventosGuardados constructor(db : DBHelper) {
 
     var eventos: MutableList<Evento> = arrayListOf()
-    lateinit var db: DBHelper
+    private var db = db
     //Función que guarda los futuros eventos a realizar
     fun agregarEvento(evento: Evento): String {
         //Agregar a base de datos
@@ -143,7 +143,7 @@ class EventosGuardados {
         if (listaLocal.size == 0) { return listaSalida }
         listaLocal.sortBy{it.fecha}
         //Recortar
-        for (i in cantidad-1 downTo 0){
+        for (i in 0 until  cantidad){
             listaSalida.add(listaLocal[i])
         }
 
