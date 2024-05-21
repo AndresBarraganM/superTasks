@@ -10,6 +10,7 @@
     <string name="btnCrearTarea">Crea una nueva tarea</string>
     <string name="btnCalendario">Calendario de eventos</string>
     <string name="btnAgregar">AGREGAR</string>
+    <string name="btnAceptar">ACEPTAR</string>
 
     <string name="imgEncabezado">encabezado</string>
     <string name="imgFondo2">imgFondo2</string>
