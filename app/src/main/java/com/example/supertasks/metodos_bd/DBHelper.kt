@@ -1,5 +1,4 @@
 package com.example.supertasks.metodos_bd
-
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

@@ -95,9 +95,8 @@ class EventosGuardados constructor(private var db: DBHelper) {
         val ahora: Calendar = Calendar.getInstance()
         val limiteSup: Calendar = Calendar.getInstance()
 
-        eventos.forEach{
-            listaFechas.add(
-                it.fecha)
+        eventos?.forEach {
+            listaFechas.add(it.fecha)
         }
 
         //Variar limite superior
@@ -125,7 +124,7 @@ class EventosGuardados constructor(private var db: DBHelper) {
         val ahoraDate = ahora.time
         val limSupDate = limiteSup.time
 
-        listaFechas.forEach{
+        listaFechas?.forEach{
             if ((it.after(ahoraDate)) && (it.before(limSupDate))){
                 cantidadEventos += 1
             }

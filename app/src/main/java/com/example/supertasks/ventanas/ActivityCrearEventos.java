@@ -30,9 +30,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.supertasks.R;
-import com.example.supertasks.metodos_bd.DBHelper;
 import com.example.supertasks.modelos.Evento;
 import com.example.supertasks.modelos.EventosGuardados;
+import com.example.supertasks.MainActivity;
 
 import java.util.Calendar;
 
@@ -50,7 +50,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_evento);
-
+        EventosGuardados eventoLocal = MainActivity.eventosLocales;
         TextView btnTxtAgregar = findViewById(R.id.btnTxtAgregar);
 
         btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
@@ -161,14 +161,10 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 String nombre = nombreEvento.getText().toString();
                 String descripcion = descripcionEvento.getText().toString();
                 String prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
-
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
-
-                DBHelper dbHelper = new DBHelper(getApplicationContext());
-                EventosGuardados eventoNuevo = new EventosGuardados(dbHelper);
-                String mensaje = eventoNuevo.agregarEvento(evento);
+                String mensaje = eventoLocal.agregarEvento(evento);
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
             }
         });
