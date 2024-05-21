@@ -159,6 +159,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 EventosGuardados eventoNuevo = new EventosGuardados(ActivityCrearEventos.this);
                 String mensaje = eventoNuevo.agregarEvento(evento);
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+                // Modificado
             }
         });
 
