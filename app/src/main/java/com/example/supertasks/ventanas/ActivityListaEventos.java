@@ -33,7 +33,7 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     RecyclerView recyclerView;
     ListaAdaptador listaAdaptador;
 
-    String[] palabrasCmb = {"Eventos ya hechos", "Eventos por hacer"};
+    String[] palabrasCmb = { "Eventos por hacer", "Eventos ya hechos"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +99,16 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     public void init() {
         // Bundle me dice como entre a esta ventana
         Bundle b = getIntent().getExtras();
-        setearRecyclerView(b.getString("filtro"));
+        String filtro = b.getString("filtro");
+        Spinner cmbEventos = findViewById(R.id.ComboCompletados);
+
+        if (filtro.equals("futuros")){
+            cmbEventos.setSelection(0);
+        } else if (filtro.equals("pasados")){
+            cmbEventos.setSelection(1);
+        }
+        //setearRecyclerView(b.getString(filtro);
+
     }
 
     //Metodo para setear el recyclerView
