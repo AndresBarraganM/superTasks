@@ -99,24 +99,33 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     }
 
     public void init() {
-        setearRecyclerView();
+        //setearRecyclerView();
     }
 
     //Metodo para setear el recyclerView
-    private void setearRecyclerView(){
+    private void setearRecyclerView(String filtro){
         RecyclerView recyclerView = findViewById(R.id.recyclerVwListaEventos);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(crearAdaptador());
+        recyclerView.setAdapter(crearAdaptador(filtro));
     }
 
     //Metodo que devuelve los objetos para el recycler
-    private ListaAdaptador crearAdaptador() {
+    //filtro indica cuales eventos se usaran, en este caso "futuro" y "pasado"
+    private ListaAdaptador crearAdaptador(String filtro) {
         elementos = new ArrayList<>();
         Log.d("ACTIVITYLISTAEVENTOS", "Obteniendo para el recicler");
-        //Obtener lista de los eventos que guardamos TODO Hacer que cambie segun el cmb y la entrada desde main
-        List<Evento> eventos = MainActivity.eventosLocales.listaDeEventosFuturos();
+        List<Evento> eventos = new ArrayList();
+
+        if (filtro.equals("futuros")){
+            eventos = MainActivity.eventosLocales.listaDeEventosFuturos();
+        } else
+        if(filtro.equals("pasados")){
+            eventos = MainActivity.eventosLocales.listaDeEventosYaHechos();
+        } else {
+            Log.w("ActivityListaEventos/crearAdaptador", " Error, palabra de entrada no en las palabras pedidas");
+        }
 
         //Poner los eventos
         elementos = new ArrayList<>();
@@ -138,7 +147,11 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     // Listeners del combobox
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        if(position == 0){
+            setearRecyclerView("futuros");
+        } else if( position == 1){
+            setearRecyclerView("pasados");
+        }
     }
 
     @Override
