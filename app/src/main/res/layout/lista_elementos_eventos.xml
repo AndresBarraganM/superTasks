@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="60dp"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:text="@string/tituloPendiente" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="75dp"
                 android:text="@string/txtFechaEvento"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/imgReloj"
