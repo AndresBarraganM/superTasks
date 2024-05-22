@@ -99,7 +99,9 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     }
 
     public void init() {
-        //setearRecyclerView();
+        // Bundle me dice como entre a esta ventana
+        Bundle b = getIntent().getExtras();
+        setearRecyclerView(b.getString("filtro"));
     }
 
     //Metodo para setear el recyclerView

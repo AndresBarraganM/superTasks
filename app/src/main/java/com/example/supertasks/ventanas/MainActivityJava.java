@@ -70,10 +70,15 @@ public class MainActivityJava extends AppCompatActivity {
         }
 
         // 02/05/2024 -- Funcionalidad boton Ver Todos //
+            // boundle envia la informacion de esta ventana a la otra
+        Bundle b = new Bundle();
+
         txtVerTodosEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivityJava.this, ActivityListaEventos.class);
+                b.putString("filtro", "futuros"); //Entrara como evento futuro
+                intent.putExtras(b); //Put your id to your next Intent
                 startActivity(intent);
             }
         });
@@ -83,6 +88,8 @@ public class MainActivityJava extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivityJava.this, ActivityListaEventos.class);
+                b.putString("filtro", "pasados"); //Entrara como evento futuro
+                intent.putExtras(b); //Put your id to your next Intent
                 startActivity(intent);
             }
         });
