@@ -1,9 +1,13 @@
 package com.example.supertasks.ventanas;
 import android.Manifest;
+
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -25,7 +29,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import com.example.supertasks.R;
 import com.example.supertasks.modelos.Evento;
 import com.example.supertasks.modelos.EventosGuardados;
@@ -34,11 +37,19 @@ import java.util.Calendar;
 
 public class ActivityCrearEventos extends AppCompatActivity {
     private EditText nombreEvento, descripcionEvento;
-
-    // Variables para almacenar los datos de los eventos
     private String nombre, descripcion, prioridadSeleccionada, fechaFormateada;
     private Calendar fecha = Calendar.getInstance();
     private Evento evento = new Evento();
+
+    private void scheduleNotification(String nombre, String descripcion, long triggerAtMillis) {
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra("nombre", nombre);
+        intent.putExtra("descripcion", descripcion);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+    }
 
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
@@ -64,26 +75,17 @@ public class ActivityCrearEventos extends AppCompatActivity {
         descripcionEvento = findViewById(R.id.editTextTextMultiLine);
         ImageView btnRegresar = findViewById(R.id.btnRegresar2);
 
-        // ComboBox nivel prioridad
         Spinner comboPrioridad = findViewById(R.id.comboPrioridad);
         String[] opcionesCombo = {"Alta", "Media", "Baja"};
         ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opcionesCombo);
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         comboPrioridad.setAdapter(adaptador);
 
-        //Notificaciones
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "test")
-                .setSmallIcon(R.drawable.baseline_notifications_24)
-                .setContentTitle(getString(R.string.app_name))
-                .setContentText("PRUEBA DE NOTIFICACION (ME QUIERO CORTAR EL PITO)")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        // Inicializamos Notification Manager
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         TextView postNotification = findViewById(R.id.btnTxtAgregar);
 
-        // Establecer fecha y hora
         verCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +121,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
             }
         });
 
-        // Obtener el texto ingresado en el nombre de evento
         nombreEvento.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -137,7 +138,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
             }
         });
 
-        // Obtener el texto ingresado en descripcion
         descripcionEvento.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -166,7 +166,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
         btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ActivityCompat.checkSelfPermission(ActivityCrearEventos.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                     activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
                 } else {
@@ -177,8 +176,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
                         NotificationChannel channel = new NotificationChannel("test", name, importance);
                         channel.setDescription(description);
                         notificationManager.createNotificationChannel(channel);
-
-                        notificationManager.notify(10, builder.build());
                     }
                 }
 
@@ -190,10 +187,13 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
                 String guardarEvento = eventoLocal.agregarEvento(evento);
                 String mensaje = "Nombre: " + evento.getNombre() +
-                        "\nFecha: " + evento.getFecha() +
+                        "\nFecha: " + evento.getFecha() + // Mostrar la fecha completa
                         "\nPrioridad: " + evento.getPrioridad();
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
 
+                // Programar la notificación
+                long triggerAtMillis = evento.getFecha().getTime();
+                scheduleNotification(nombre, descripcion, triggerAtMillis);
             }
         });
     }
