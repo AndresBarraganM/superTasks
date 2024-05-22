@@ -20,6 +20,7 @@ class ExampleUnitTest {
     @Test
     fun funciona_eventos_guardados() {
         val listaEventos = EventosGuardados()
+
         var db = DBHelper(InstrumentationRegistry.getInstrumentation().getTargetContext())
 
 

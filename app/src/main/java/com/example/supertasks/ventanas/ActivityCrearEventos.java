@@ -1,11 +1,8 @@
 package com.example.supertasks.ventanas;
-
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,22 +20,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
 import com.example.supertasks.R;
 import com.example.supertasks.modelos.Evento;
 import com.example.supertasks.modelos.EventosGuardados;
 import com.example.supertasks.MainActivity;
-
 import java.util.Calendar;
 
 public class ActivityCrearEventos extends AppCompatActivity {
-    private static final String CHANNEL_ID = "NEW";
-    private PendingIntent pendingIntent;
     private EditText nombreEvento, descripcionEvento;
 
     // Variables para almacenar los datos de los eventos
@@ -46,6 +40,16 @@ public class ActivityCrearEventos extends AppCompatActivity {
     private Calendar fecha = Calendar.getInstance();
     private Evento evento = new Evento();
 
+    private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean o) {
+            if (o) {
+                Toast.makeText(ActivityCrearEventos.this, "Post notification permission granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(ActivityCrearEventos.this, "Post notification permission not granted", Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
     int dia, mes, anio, hora, minuto;
 
     @Override
@@ -54,16 +58,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
         setContentView(R.layout.activity_crear_evento);
         EventosGuardados eventoLocal = MainActivity.eventosLocales;
         TextView btnTxtAgregar = findViewById(R.id.btnTxtAgregar);
-
-//        btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    createNotificationChannel();
-//                }
-//                showNewNotification();
-//            }
-//        });
 
         ImageView verCalendario = findViewById(R.id.verCalendario);
         nombreEvento = findViewById(R.id.txtFieldNombre);
@@ -76,6 +70,18 @@ public class ActivityCrearEventos extends AppCompatActivity {
         ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opcionesCombo);
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         comboPrioridad.setAdapter(adaptador);
+
+        //Notificaciones
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "test")
+                .setSmallIcon(R.drawable.baseline_notifications_24)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText("PRUEBA DE NOTIFICACION (ME QUIERO CORTAR EL PITO)")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+
+        TextView postNotification = findViewById(R.id.btnTxtAgregar);
 
         // Establecer fecha y hora
         verCalendario.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +166,22 @@ public class ActivityCrearEventos extends AppCompatActivity {
         btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ActivityCompat.checkSelfPermission(ActivityCrearEventos.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                } else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        CharSequence name = getString(R.string.app_name);
+                        String description = "Example Notification";
+                        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                        NotificationChannel channel = new NotificationChannel("test", name, importance);
+                        channel.setDescription(description);
+                        notificationManager.createNotificationChannel(channel);
+
+                        notificationManager.notify(10, builder.build());
+                    }
+                }
+
                 nombre = nombreEvento.getText().toString();
                 descripcion = descripcionEvento.getText().toString();
                 prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
@@ -171,48 +193,9 @@ public class ActivityCrearEventos extends AppCompatActivity {
                         "\nFecha: " + evento.getFecha() +
                         "\nPrioridad: " + evento.getPrioridad();
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+
             }
         });
-    }
-
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "NEW", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            if (manager != null) {
-                manager.createNotificationChannel(channel);
-            }
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private void showNewNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
-                return;
-            }
-        }
-
-        setPendingIntent(ActivityCrearEventos.class);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.ic_dialog_alert)
-                .setContentTitle("Mi Primera Notificación")
-                .setContentText("Esta es una prueba de notificación")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-        managerCompat.notify(1, builder.build());
-    }
-
-    private void setPendingIntent(Class<?> clsActivity) {
-        Intent intent = new Intent(this, clsActivity);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(clsActivity);
-        stackBuilder.addNextIntent(intent);
-        pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private int convertirPrioridad(String prioridadSeleccionada) {
@@ -224,23 +207,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
             return 3;
         } else {
             return 0;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                showNewNotification();
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 }

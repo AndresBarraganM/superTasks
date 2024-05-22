@@ -5,7 +5,7 @@
     <string name="txtPendientesCompletados">Pendientes Completados</string>
     <string name="txtVerTodos">Ver todos</string>
     <string name="txtVerTodos2">Ver todos</string>
-    <string name ="txtPendientesCompleatods">Pendientes Completados</string>
+    <string name="txtPendientesCompleatods">Pendientes Completados</string>
 
     <string name="btnCrearTarea">Crea una nueva tarea</string>
     <string name="btnCalendario">Calendario de eventos</string>

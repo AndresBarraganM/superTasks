@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.supertasks.MainActivity;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.supertasks.R;
 import com.example.supertasks.modelos.EventosGuardados;
 

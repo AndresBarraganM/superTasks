@@ -10,6 +10,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="colorComboBox">#3C8490</color>
+    <color name="colorPaletta1">#A0C4E2</color>
+    <color name="colorPaletta2">#AED1E6</color>
+    <color name="colorPaletta3">#C6DBF0</color>
+    <color name="colorPaletta4">#CFE8EF</color>
+
+
    <!-- <color name="btnCrearTarea">#00EBC0</color>  el color puede ocasionar que se crashee-->
 
 </resources>
