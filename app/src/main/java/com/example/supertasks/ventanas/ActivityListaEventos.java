@@ -1,14 +1,22 @@
 package com.example.supertasks.ventanas;
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.supertasks.MainActivity;
 import com.example.supertasks.R;
 import com.example.supertasks.adaptadores.ListaAdaptador;
 import com.example.supertasks.adaptadores.ListaEventos;
+import com.example.supertasks.modelos.Evento;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +24,8 @@ import java.util.List;
 public class ActivityListaEventos extends AppCompatActivity {
 
     List<ListaEventos> elementos;
+    RecyclerView recyclerView;
+    ListaAdaptador listaAdaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +64,23 @@ public class ActivityListaEventos extends AppCompatActivity {
         init();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     public void init() {
         elementos = new ArrayList<>();
-        elementos.add(new ListaEventos("Limpiar casa", "20/02/2024"));
-        elementos.add(new ListaEventos("Comer", "25/02/2024"));
-        elementos.add(new ListaEventos("Estudiar", "26/02/24"));
-        elementos.add(new ListaEventos("Ejercicio", "30/02/24"));
+        //Obtener lista de los eventos que guardamos TODO Hacer que cambie segun el cmb y la entrada desde main
+        List<Evento> eventos = MainActivity.eventosLocales.listaDeEventosFuturos();
+
+        //Poner los eventos
+        elementos = new ArrayList<>();
+        Evento ev;
+        for (int i= 0; i <= elementos.size(); i++){
+            ev = eventos.get(i);
+            elementos.add(new ListaEventos(ev.getNombre(), ev.getFecha().toString()));
+        }
 
         ListaAdaptador listaAdaptador = new ListaAdaptador(elementos, this);
 
@@ -68,4 +89,8 @@ public class ActivityListaEventos extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(listaAdaptador);
     }
+
+
+
+
 }
