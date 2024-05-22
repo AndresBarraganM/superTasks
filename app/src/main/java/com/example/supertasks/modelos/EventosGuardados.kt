@@ -41,7 +41,6 @@ class EventosGuardados constructor(private var db: DBHelper) {
             3, "rojo")
         this.agregarEvento(ev)
 
-        fecha.add(Calendar.DAY_OF_MONTH,1)
         ev = Evento("Entregar examen", fecha.time, "Entregar el examende simulacion",
             1, "amarillo")
         this.agregarEvento(ev)
