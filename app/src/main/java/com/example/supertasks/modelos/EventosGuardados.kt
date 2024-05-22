@@ -156,7 +156,6 @@ class EventosGuardados constructor(private var db: DBHelper) {
             if (it.fecha.before(ahora) ){ // es antes
                 eventosPasados.add(it)
             }
-
         }
         return eventosPasados
     }
@@ -219,10 +218,25 @@ class EventosGuardados constructor(private var db: DBHelper) {
         if (listaLocal.size == 0) { return listaSalida }
         listaLocal.sortBy{it.fecha}
         //Recortar
-        for (i in 0 until  cantidad){
+        for (i in 0 until  cantidad) {
             listaSalida.add(listaLocal[i])
         }
-
         return listaSalida
     }
+
+    //Este método devuelve una lista con los eventos hechos recientemente
+    fun eventosCompletadosOrdenados(cantidad: Int): MutableList<Evento>{
+        // Lista que saldrá
+        val listaLocal = listaDeEventosYaHechos()
+        val listaSalida: MutableList<Evento> = arrayListOf()
+        // Si no encuentra ninguno
+        if (listaLocal.size == 0){return listaSalida}
+        listaLocal.sortBy{it.fecha}
+        //Recortar a lo necesario
+        for (i in  0 until cantidad){
+            listaSalida.add(listaLocal[i])
+        }
+        return listaSalida
+    }
+
 }

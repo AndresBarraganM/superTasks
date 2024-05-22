@@ -9,7 +9,12 @@ import android.widget.TextView;
 import com.example.supertasks.MainActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.supertasks.R;
+import com.example.supertasks.modelos.Evento;
 import com.example.supertasks.modelos.EventosGuardados;
+
+import org.w3c.dom.Text;
+
+import java.util.List;
 
 public class MainActivityJava extends AppCompatActivity {
 
@@ -19,6 +24,7 @@ public class MainActivityJava extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         int eventosDia = 0, eventosSemana = 0, eventosMes = 0;
+        List<Evento> porCompletar, yaCompletado;
 
         // Inicializar
         EventosGuardados eventoLocal = MainActivity.eventosLocales;
@@ -28,6 +34,9 @@ public class MainActivityJava extends AppCompatActivity {
         ImageView btnCalendario = findViewById(R.id.btnCalendario);
         TextView txtVerTodosEventos = findViewById(R.id.txtVerTodosEventos);
         TextView txtVerTodosCompletados = findViewById(R.id.txtVerTodosCompletados);
+        TextView labelUltimoPendiente = findViewById(R.id.labelUltimoPendiente);
+        TextView labelUltimoPendiente2 = findViewById(R.id.labelUltimoPendiente2);
+        TextView labelPendienteCompletado = findViewById(R.id.labelPendienteCompletados);
 
         // Obtén una referencia al botón --> 26/04/2024
         Button btnCrearTarea = findViewById(R.id.btnCrearTarea);
@@ -50,6 +59,29 @@ public class MainActivityJava extends AppCompatActivity {
             }
         });
         // Se inicializa la clase EventosGuardados
+
+        // 22/05/2024 -- Funcionalidad de mostrar los dos ultimos eventos pendientes
+        if(eventoLocal != null){
+            Log.d("EVENTOS HECHOS ","----------------------------------"+eventoLocal.toString());
+            porCompletar = eventoLocal.eventosCercanos(2);
+            Evento ultimoEvento1 = porCompletar.get(0);
+            Evento ultimoEvento2 = porCompletar.get(1);
+            labelUltimoPendiente.setText(ultimoEvento1.getNombre());
+            labelUltimoPendiente2.setText(ultimoEvento2.getNombre());
+        }else {
+            Log.d("EVENTO PENDIENTE", "DESCRIPCION DEL EVENTO" + labelPendienteCompletado);
+        }
+
+        // 22/05/2024 -- Funcionalidad de mostrar el ultimo evento completado
+        if(eventoLocal != null){
+            Log.d("EVENTOS HECHOS ","----------------------------------"+eventoLocal.toString());
+            yaCompletado = eventoLocal.eventosCompletadosOrdenados(1);
+            Evento completado = yaCompletado.get(0);
+            labelPendienteCompletado.setText(completado.getNombre());
+        }else {
+            Log.d("EVENTO PENDIENTE", "DESCRIPCION DEL EVENTO" + labelPendienteCompletado);
+        }
+
 
         // 20/05/2024 -- funcionalidad de ver el proximo pendiente de mañana
         if (eventoLocal != null) {
