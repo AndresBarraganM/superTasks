@@ -3,6 +3,7 @@ package com.example.supertasks.ventanas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -70,24 +71,37 @@ public class ActivityListaEventos extends AppCompatActivity {
     }
 
     public void init() {
+        setearRecyclerView();
+    }
+
+    //Metodo para setear el recyclerView
+    private void setearRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.recyclerVwListaEventos);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setAdapter(crearAdaptador());
+    }
+
+    //Metodo que devuelve los objetos para el recycler
+    private ListaAdaptador crearAdaptador() {
         elementos = new ArrayList<>();
+        Log.d("ACTIVITYLISTAEVENTOS", "Obteniendo para el recicler");
         //Obtener lista de los eventos que guardamos TODO Hacer que cambie segun el cmb y la entrada desde main
         List<Evento> eventos = MainActivity.eventosLocales.listaDeEventosFuturos();
 
         //Poner los eventos
         elementos = new ArrayList<>();
         Evento ev;
-        for (int i= 0; i <= elementos.size(); i++){
+        for (int i= 0; i <= eventos.size() -1; i++){
             ev = eventos.get(i);
             elementos.add(new ListaEventos(ev.getNombre(), ev.getFecha().toString()));
         }
 
         ListaAdaptador listaAdaptador = new ListaAdaptador(elementos, this);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerVwListaEventos);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(listaAdaptador);
+
+        return listaAdaptador;
     }
 
 
