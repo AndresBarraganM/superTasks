@@ -16,7 +16,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,6 +29,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import com.example.supertasks.R;
+import com.example.supertasks.adaptadores.PrioridadAdaptador;
 import com.example.supertasks.modelos.Evento;
 import com.example.supertasks.modelos.EventosGuardados;
 import com.example.supertasks.MainActivity;
@@ -40,6 +40,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
     private String nombre, descripcion, prioridadSeleccionada, fechaFormateada;
     private Calendar fecha = Calendar.getInstance();
     private Evento evento = new Evento();
+    private Spinner comboPrioridad;
 
     private void scheduleNotification(String nombre, String descripcion, long triggerAtMillis) {
         Intent intent = new Intent(this, NotificationReceiver.class);
@@ -69,22 +70,20 @@ public class ActivityCrearEventos extends AppCompatActivity {
         setContentView(R.layout.activity_crear_evento);
         EventosGuardados eventoLocal = MainActivity.eventosLocales;
         TextView btnTxtAgregar = findViewById(R.id.btnTxtAgregar);
-
+        comboPrioridad = findViewById(R.id.comboPrioridad);
         ImageView verCalendario = findViewById(R.id.verCalendario);
         nombreEvento = findViewById(R.id.txtFieldNombre);
         descripcionEvento = findViewById(R.id.editTextTextMultiLine);
         ImageView btnRegresar = findViewById(R.id.btnRegresar2);
 
-        Spinner comboPrioridad = findViewById(R.id.comboPrioridad);
-        String[] opcionesCombo = {"Alta", "Media", "Baja"};
-        ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opcionesCombo);
-        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        comboPrioridad.setAdapter(adaptador);
 
         // Inicializamos Notification Manager
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         TextView postNotification = findViewById(R.id.btnTxtAgregar);
+
+        // Configurar el comboBox
+        PrioridadAdaptador.configurarPrioridad(this, comboPrioridad);
 
         verCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,6 +193,12 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 // Programar la notificación
                 long triggerAtMillis = evento.getFecha().getTime();
                 scheduleNotification(nombre, descripcion, triggerAtMillis);
+
+                Intent intent = new Intent(ActivityCrearEventos.this, ActivityEditarEventos.class);
+                intent.putExtra("nombreEvento", nombre);
+                intent.putExtra("descripcionEvento", descripcion);
+                intent.putExtra("prioridadEvento", prioridadSeleccionada);
+                startActivity(intent);
             }
         });
     }

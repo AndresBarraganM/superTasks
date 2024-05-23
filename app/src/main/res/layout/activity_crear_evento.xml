@@ -20,9 +20,9 @@
 
         <ImageView
             android:id="@+id/btnRegresar2"
-            android:layout_width="53dp"
+            android:layout_width="73dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             app:srcCompat="@drawable/regresar2"
             tools:ignore="ContentDescription" />
     </FrameLayout>

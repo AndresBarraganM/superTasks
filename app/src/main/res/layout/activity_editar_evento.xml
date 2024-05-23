@@ -7,6 +7,7 @@
 
     <FrameLayout
         android:id="@+id/frameLayout"
+        android:backgroundTint="@color/colorPaletta1"
         android:layout_width="428dp"
         android:layout_height="50dp"
         android:background="@drawable/frame_encabezado_verde"
@@ -45,7 +46,7 @@
         android:id="@+id/frameLayout2"
         android:layout_width="303dp"
         android:layout_height="158dp"
-        android:background="@drawable/frame_eventos_bg"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,13 +55,17 @@
 
         <EditText
             android:id="@+id/editarDescripcion"
+            android:background="@color/colorPaletta4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:hint="Descripcion del evento"
+            android:textAlignment="center"
             android:autofillHints=""
             android:ems="10"
-            android:gravity="start|top"
+            android:gravity="start|center"
             android:inputType="textMultiLine"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck"
+            />
 
     </FrameLayout>
 
@@ -68,17 +73,21 @@
         android:id="@+id/txtNombre"
         android:layout_width="128dp"
         android:layout_height="0dp"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="64dp"
         android:text="@string/txtFieldNombre"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/txtFieldEditarNombre"
+        android:background="@color/colorPaletta4"
+        android:hint="Introduce el nombre del evento"
+        android:textAlignment="center"
+        android:gravity="start|center"
         android:layout_width="343dp"
         android:layout_height="48dp"
         android:autofillHints=""
@@ -106,23 +115,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.714" />
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imagenFondo2"
         android:layout_width="419dp"
-        android:layout_height="87dp"
-        android:contentDescription="@string/imgFondo2"
+        android:layout_height="90dp"
+        android:background="@drawable/abajo"
+        android:backgroundTint="@color/colorPaletta2"
         android:scaleType="fitXY"
-        android:src="@drawable/abajo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="ImageContrastCheck,VisualLintBounds" />
 
     <ImageView
-        android:id="@+id/verCalendario"
+        android:id="@+id/verCalendario2"
+        android:backgroundTint="@color/colorPaletta4"
         android:layout_width="58dp"
         android:layout_height="65dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -162,9 +172,10 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <FrameLayout
+        android:id="@+id/comboEditPrioridad"
         android:layout_width="170dp"
         android:layout_height="41dp"
-        android:background="@drawable/combo_box"
+        android:background="@color/colorPaletta4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.763"
@@ -175,6 +186,7 @@
         <Spinner
             android:id="@+id/comboEditarPrioridad"
             android:layout_width="168dp"
+            android:background="@color/colorPaletta3"
             android:layout_height="match_parent"
             tools:ignore="TouchTargetSizeCheck" />
     </FrameLayout>
