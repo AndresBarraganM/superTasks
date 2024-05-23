@@ -175,7 +175,14 @@ public class ActivityCrearEventos extends AppCompatActivity {
                         int importance = NotificationManager.IMPORTANCE_DEFAULT;
                         NotificationChannel channel = new NotificationChannel("test", name, importance);
                         channel.setDescription(description);
-                        notificationManager.createNotificationChannel(channel);
+                        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                        if (notificationManager != null) {
+                            notificationManager.createNotificationChannel(channel);
+                        } else {
+                            // Maneja el caso en que notificationManager es null
+                            Log.e("Notification", "NotificationManager is null");
+                            return;
+                        }
                     }
                 }
 
