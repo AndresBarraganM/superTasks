@@ -1,18 +1,20 @@
 package com.example.supertasks.ventanas;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.supertasks.MainActivity;
 import com.example.supertasks.R;
 import com.example.supertasks.adaptadores.PrioridadAdaptador;
+import com.example.supertasks.modelos.Evento;
+import com.example.supertasks.modelos.EventosGuardados;
 
 import java.util.Calendar;
 
@@ -21,11 +23,13 @@ public class ActivityEditarEventos extends AppCompatActivity {
     ImageView btnRegresar;
     TextView btnAceptar;
     Spinner editarPrioridad;
+    private Evento evento = new Evento();
     Calendar fecha = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_evento);
+        EventosGuardados eventoLocal = MainActivity.eventosLocales;
         editarNombre = findViewById(R.id.txtFieldEditarNombre);
         ImageView editarFecha = findViewById(R.id.verCalendario2);
         editarDescripcion = findViewById(R.id.editarDescripcion);
@@ -62,9 +66,34 @@ public class ActivityEditarEventos extends AppCompatActivity {
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String nombre = editarNombre.getText().toString();
+                String descripcion = editarDescripcion.getText().toString();
+                String prioridadSeleccionada = editarPrioridad.getSelectedItem().toString();
+                evento.setNombre(nombre);
+                evento.setDescripcion(descripcion);
+                evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
+                String guardarEvento = eventoLocal.agregarEvento(evento);
+
+                String mensaje = "Nombre: " + nombre +
+                        "\nDescripción: " + descripcion +
+                        "\nPrioridad: " + prioridadSeleccionada;
+                Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+
                 Intent intent = new Intent(ActivityEditarEventos.this, ActivityListaEventos.class);
                 startActivity(intent);
             }
         });
     }
+    private int convertirPrioridad(String prioridadSeleccionada) {
+        if ("Alta".equals(prioridadSeleccionada)) {
+            return 1;
+        } else if ("Media".equals(prioridadSeleccionada)) {
+            return 2;
+        } else if ("Baja".equals(prioridadSeleccionada)) {
+            return 3;
+        } else {
+            return 0;
+        }
+    }
+
 }
