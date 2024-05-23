@@ -69,21 +69,44 @@ public class ActivityCrearEventos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_evento);
         EventosGuardados eventoLocal = MainActivity.eventosLocales;
+        if (eventoLocal != null) {
+            // Intenta agregar el evento
+            String guardarEvento = eventoLocal.agregarEvento(evento);
+            Log.d("ActivityCrearEventos", "Evento almacenado: " + guardarEvento);
+            // Resto del código para manejar el evento agregado
+        } else {
+            Log.e("ActivityCrearEventos", "eventosLocales es nulo");
+            // Manejar el caso donde eventosLocales es nulo, por ejemplo, mostrar un mensaje de error al usuario.
+        }
         TextView btnTxtAgregar = findViewById(R.id.btnTxtAgregar);
         comboPrioridad = findViewById(R.id.comboPrioridad);
         ImageView verCalendario = findViewById(R.id.verCalendario);
         nombreEvento = findViewById(R.id.txtFieldNombre);
         descripcionEvento = findViewById(R.id.editTextTextMultiLine);
         ImageView btnRegresar = findViewById(R.id.btnRegresar2);
-
-
-        // Inicializamos Notification Manager
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         TextView postNotification = findViewById(R.id.btnTxtAgregar);
 
         // Configurar el comboBox
         PrioridadAdaptador.configurarPrioridad(this, comboPrioridad);
+
+        nombreEvento.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String textoIngresado = nombreEvento.getText().toString();
+                evento.setNombre(textoIngresado);
+                Log.d("ActivityCrearEventos", "Texto ingresado: " + textoIngresado);
+            }
+        });
 
         verCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,23 +140,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
                             }
                         }, anio, mes, dia);
                 dpd.show();
-            }
-        });
-
-        nombreEvento.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String textoIngresado = nombreEvento.getText().toString();
-                evento.setNombre(textoIngresado);
-                Log.d("ActivityCrearEventos", "Texto ingresado: " + textoIngresado);
             }
         });
 
@@ -194,6 +200,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
                 String guardarEvento = eventoLocal.agregarEvento(evento);
+                Log.d("ActivityCrearEventos", "Evento almacenado: " + guardarEvento);
                 String mensaje = "Nombre: " + evento.getNombre() +
                         "\nFecha: " + evento.getFecha() + // Mostrar la fecha completa
                         "\nPrioridad: " + evento.getPrioridad();

@@ -1,6 +1,7 @@
 package com.example.supertasks.ventanas;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -66,21 +67,28 @@ public class ActivityEditarEventos extends AppCompatActivity {
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre = editarNombre.getText().toString();
-                String descripcion = editarDescripcion.getText().toString();
-                String prioridadSeleccionada = editarPrioridad.getSelectedItem().toString();
-                evento.setNombre(nombre);
-                evento.setDescripcion(descripcion);
-                evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
-                String guardarEvento = eventoLocal.agregarEvento(evento);
+                try {
+                    String nombre = editarNombre.getText().toString();
+                    String descripcion = editarDescripcion.getText().toString();
+                    String prioridadSeleccionada = editarPrioridad.getSelectedItem().toString();
 
-                String mensaje = "Nombre: " + nombre +
-                        "\nDescripción: " + descripcion +
-                        "\nPrioridad: " + prioridadSeleccionada;
-                Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+                    evento.setNombre(nombre);
+                    evento.setDescripcion(descripcion);
+                    evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
 
-                Intent intent = new Intent(ActivityEditarEventos.this, ActivityListaEventos.class);
-                startActivity(intent);
+                    String guardarEvento = eventoLocal.agregarEvento(evento);
+
+                    String mensaje = "Nombre: " + nombre +
+                            "\nDescripción: " + descripcion +
+                            "\nPrioridad: " + prioridadSeleccionada;
+                    Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(ActivityEditarEventos.this, ActivityListaEventos.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Log.e("ActivityEditarEventos", "Error al aceptar el evento", e);
+                    Toast.makeText(getApplicationContext(), "Error al aceptar el evento", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
