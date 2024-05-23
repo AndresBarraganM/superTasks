@@ -7,6 +7,10 @@ import android.widget.CalendarView;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.supertasks.R;
+import com.example.supertasks.adaptadores.EventoCalendario;
+
+import java.util.Calendar;
+import java.util.HashSet;
 
 public class ActivityCalendario extends AppCompatActivity {
 
@@ -14,16 +18,20 @@ public class ActivityCalendario extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
-        CalendarView calendarioView = findViewById(R.id.calendario);
+        EventoCalendario calendarioView = findViewById(R.id.calendario);
+        // Migrar datos 22-05-2024
+        Intent intent = getIntent();
+        long fechaEventoMillis = intent.getLongExtra("fechaevento", -1);
+        HashSet<Calendar> eventoCalendario = new HashSet<>();
 
-        /*
-            Calendar calendarioActual = Calendar.getInstance();
-            int anio = calendarioActual.get(Calendar.YEAR);
-            int mes = calendarioActual.get(Calendar.MONTH);
-          int dia = calendarioActual.get(Calendar.DAY_OF_MONTH);
-         */
-        calendarioView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-        });
+        // Establecer fecha 22-05-2024
+        if (fechaEventoMillis != -1) {
+            Calendar evento = Calendar.getInstance();
+            evento.setTimeInMillis(fechaEventoMillis);
+            eventoCalendario.add(evento);
+        }
+
+        calendarioView.setEventoCalendario(eventoCalendario);
 
         ImageView btnRegresar = findViewById(R.id.btnRegresar);
         btnRegresar.setOnClickListener(new View.OnClickListener() {

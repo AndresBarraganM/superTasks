@@ -165,6 +165,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
         btnTxtAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Notificacion
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ActivityCompat.checkSelfPermission(ActivityCrearEventos.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                     activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
                 } else {
@@ -178,6 +179,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
                     }
                 }
 
+                // Crear Evento y Almacenarlo
                 nombre = nombreEvento.getText().toString();
                 descripcion = descripcionEvento.getText().toString();
                 prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
@@ -198,6 +200,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 intent.putExtra("nombreEvento", nombre);
                 intent.putExtra("descripcionEvento", descripcion);
                 intent.putExtra("prioridadEvento", prioridadSeleccionada);
+                intent.putExtra("fechaEvento", triggerAtMillis);
                 startActivity(intent);
             }
         });
