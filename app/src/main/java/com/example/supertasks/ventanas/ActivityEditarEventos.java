@@ -78,23 +78,30 @@ public class ActivityEditarEventos extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    String nombre = editarNombre.getText().toString();
-                    String descripcion = editarDescripcion.getText().toString();
-                    String prioridadSeleccionada = editarPrioridad.getSelectedItem().toString();
+                    // Verificar que los EditText y Spinner no sean nulos
+                    if (editarNombre != null && editarDescripcion != null && editarPrioridad != null) {
+                        String nombre = editarNombre.getText().toString().trim();
+                        String descripcion = editarDescripcion.getText().toString().trim();
+                        String prioridadSeleccionada = editarPrioridad.getSelectedItem().toString();
 
-                    evento.setNombre(nombre);
-                    evento.setDescripcion(descripcion);
-                    evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
-
-                    String guardarEvento = eventoLocal.agregarEvento(evento);
-
-                    String mensaje = "Nombre: " + nombre +
-                            "\nDescripción: " + descripcion +
-                            "\nPrioridad: " + prioridadSeleccionada;
-                    Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
+                        // Los campos no deben estar vacios
+                        if (!nombre.isEmpty() && !descripcion.isEmpty() && !prioridadSeleccionada.isEmpty()) {
+                            evento.setNombre(nombre);
+                            evento.setDescripcion(descripcion);
+                            evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
+                            String guardarEvento = eventoLocal.agregarEvento(evento);
+                            String mensaje = "Nombre: " + nombre +
+                                    "\nDescripción: " + descripcion +
+                                    "\nPrioridad: " + prioridadSeleccionada;
+                            Toast.makeText(v.getContext(), mensaje, Toast.LENGTH_LONG).show();
+                        }
+                        else {Toast.makeText(v.getContext(), "Por favor, complete todos los campos.", Toast.LENGTH_LONG).show();}
+                    }
+                    else {Toast.makeText(v.getContext(), "Error: elementos de la interfaz no encontrados.", Toast.LENGTH_LONG).show();}
+                }
+                catch (Exception e) {
                     Log.e("ActivityEditarEventos", "Error al aceptar el evento", e);
-                    Toast.makeText(getApplicationContext(), "Error al aceptar el evento", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Error al aceptar el evento", Toast.LENGTH_LONG).show();
                 }
             }
         });

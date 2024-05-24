@@ -217,6 +217,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
                         "\nPrioridad: " + evento.getPrioridad();
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
 
+                // Validacion
                 if (eventoLocal != null) {
                     String guardarEvento = eventoLocal.agregarEvento(evento);
                     Log.d("ActivityCrearEventos", "Evento almacenado: " + guardarEvento);
@@ -228,6 +229,14 @@ public class ActivityCrearEventos extends AppCompatActivity {
                     Log.e("ActivityCrearEventos", "eventosLocales es nulo");
                     Toast.makeText(ActivityCrearEventos.this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
                 }
+
+                // Migrar evento guardado a la lista de eventos 24-05-2024
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("nombre", evento.getNombre());
+                resultIntent.putExtra("fecha", evento.getFecha().getTime());
+                resultIntent.putExtra("prioridad", evento.getPrioridad());
+                setResult(RESULT_OK, resultIntent);
+                finish();
             }
         });
     }

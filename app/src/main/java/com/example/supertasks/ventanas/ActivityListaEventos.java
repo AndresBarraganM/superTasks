@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,11 +24,13 @@ import com.example.supertasks.adaptadores.ListaEventos;
 import com.example.supertasks.modelos.Evento;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 public class ActivityListaEventos extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private static final int REQUEST_CODE_CREAR_EVENTO = 1;
     List<ListaEventos> elementos;
     RecyclerView recyclerView;
     ListaAdaptador listaAdaptador;
@@ -159,5 +162,24 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    // Agregar los eventos nuevos creados en CrearEventos a la lista 24-05-2024
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CREAR_EVENTO && resultCode == RESULT_OK) {
+            if (data != null) {
+                String nombre = data.getStringExtra("nombre");
+                long fecha = data.getLongExtra("fecha", 0);
+                int prioridad = data.getIntExtra("prioridad", 0);
+
+                Evento nuevoEvento = new Evento();
+                nuevoEvento.setNombre(nombre);
+                nuevoEvento.setFecha(new Date(fecha));
+                nuevoEvento.setPrioridad(prioridad);
+                // listaAdaptador.notifyDataSetChanged();
+            }
+        }
     }
 }
