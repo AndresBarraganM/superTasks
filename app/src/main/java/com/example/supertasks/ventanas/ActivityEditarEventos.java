@@ -43,7 +43,7 @@ public class ActivityEditarEventos extends AppCompatActivity {
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityEditarEventos.this, ActivityListaEventos.class);
+                Intent intent = new Intent(ActivityEditarEventos.this, MainActivityJava.class);
                 startActivity(intent);
             }
         });
@@ -82,9 +82,6 @@ public class ActivityEditarEventos extends AppCompatActivity {
                             "\nDescripción: " + descripcion +
                             "\nPrioridad: " + prioridadSeleccionada;
                     Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
-
-                    Intent intent = new Intent(ActivityEditarEventos.this, ActivityListaEventos.class);
-                    startActivity(intent);
                 } catch (Exception e) {
                     Log.e("ActivityEditarEventos", "Error al aceptar el evento", e);
                     Toast.makeText(getApplicationContext(), "Error al aceptar el evento", Toast.LENGTH_LONG).show();

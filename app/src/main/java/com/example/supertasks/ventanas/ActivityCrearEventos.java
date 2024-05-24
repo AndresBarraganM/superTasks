@@ -172,9 +172,14 @@ public class ActivityCrearEventos extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Notificacion
+                Log.d("ActivityCrearEventos", "btnTxtAgregar clicked");
+
+                // Notificacion
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ActivityCompat.checkSelfPermission(ActivityCrearEventos.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    Log.d("ActivityCrearEventos", "Requesting notification permission");
                     activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
                 } else {
+                    Log.d("ActivityCrearEventos", "Notification permission granted or not required");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         CharSequence name = getString(R.string.app_name);
                         String description = "Example Notification";
@@ -184,8 +189,8 @@ public class ActivityCrearEventos extends AppCompatActivity {
                         NotificationManager notificationManager = getSystemService(NotificationManager.class);
                         if (notificationManager != null) {
                             notificationManager.createNotificationChannel(channel);
+                            Log.d("ActivityCrearEventos", "Notification channel created");
                         } else {
-                            // Maneja el caso en que notificationManager es null
                             Log.e("Notification", "NotificationManager is null");
                             return;
                         }
@@ -199,23 +204,32 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
-                String guardarEvento = eventoLocal.agregarEvento(evento);
-                Log.d("ActivityCrearEventos", "Evento almacenado: " + guardarEvento);
-                String mensaje = "Nombre: " + evento.getNombre() +
-                        "\nFecha: " + evento.getFecha() + // Mostrar la fecha completa
-                        "\nPrioridad: " + evento.getPrioridad();
-                Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+                if (eventoLocal != null) {
+                    String guardarEvento = eventoLocal.agregarEvento(evento);
+                    Log.d("ActivityCrearEventos", "Evento almacenado: " + guardarEvento);
 
-                // Programar la notificación
-                long triggerAtMillis = evento.getFecha().getTime();
-                scheduleNotification(nombre, descripcion, triggerAtMillis);
+                    String mensaje = "Nombre: " + evento.getNombre() +
+                            "\nFecha: " + evento.getFecha() +
+                            "\nPrioridad: " + evento.getPrioridad();
+                    Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(ActivityCrearEventos.this, ActivityEditarEventos.class);
-                intent.putExtra("nombreEvento", nombre);
-                intent.putExtra("descripcionEvento", descripcion);
-                intent.putExtra("prioridadEvento", prioridadSeleccionada);
-                intent.putExtra("fechaEvento", triggerAtMillis);
-                startActivity(intent);
+                    // Programar la notificación
+                    long triggerAtMillis = evento.getFecha().getTime();
+                    scheduleNotification(nombre, descripcion, triggerAtMillis);
+
+                    // Migrar datos 24-05-2024
+
+                    Intent intent = new Intent(ActivityCrearEventos.this, ActivityEditarEventos.class);
+                    intent.putExtra("nombreEvento", nombre);
+                    intent.putExtra("descripcionEvento", descripcion);
+                    intent.putExtra("prioridadEvento", prioridadSeleccionada);
+                    intent.putExtra("fechaEvento", triggerAtMillis);
+                    startActivity(intent);
+                    Log.d("ActivityCrearEventos", "Starting ActivityEditarEventos");
+                } else {
+                    Log.e("ActivityCrearEventos", "eventosLocales es nulo");
+                    Toast.makeText(ActivityCrearEventos.this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -15,19 +15,18 @@ import com.example.supertasks.modelos.EventosGuardados;
 import org.w3c.dom.Text;
 
 import java.util.List;
+import com.example.supertasks.MainActivity;
 
 public class MainActivityJava extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         int eventosDia = 0, eventosSemana = 0, eventosMes = 0;
         List<Evento> porCompletar, yaCompletado;
 
         // Inicializar
-        EventosGuardados eventoLocal = MainActivity.eventosLocales;
+        EventosGuardados eventoLocal = MainActivity.Companion.getEventosLocales();
         TextView txtContadorEventos = findViewById(R.id.contadorEventos);
         TextView txtContadorEventos2 = findViewById(R.id.contadorEventos2);
         TextView txtContadorEventos3 = findViewById(R.id.contadorEventos3);
@@ -62,49 +61,54 @@ public class MainActivityJava extends AppCompatActivity {
 
         // 22/05/2024 -- Funcionalidad de mostrar los dos ultimos eventos pendientes
         if(eventoLocal != null){
-            Log.d("EVENTOS HECHOS ","----------------------------------"+eventoLocal.toString());
             porCompletar = eventoLocal.eventosCercanos(2);
-            Evento ultimoEvento1 = porCompletar.get(0);
-            Evento ultimoEvento2 = porCompletar.get(1);
-            labelUltimoPendiente.setText(ultimoEvento1.getNombre());
-            labelUltimoPendiente2.setText(ultimoEvento2.getNombre());
-        }else {
-            Log.d("EVENTO PENDIENTE", "DESCRIPCION DEL EVENTO" + labelPendienteCompletado);
+            if (porCompletar.size() >= 2) {
+                Evento ultimoEvento1 = porCompletar.get(0);
+                Evento ultimoEvento2 = porCompletar.get(1);
+                labelUltimoPendiente.setText(ultimoEvento1.getNombre());
+                labelUltimoPendiente2.setText(ultimoEvento2.getNombre());
+            } else {
+                Log.d("MainActivityJava", "No hay suficientes eventos por completar");
+            }
+        } else {
+            Log.d("MainActivityJava", "eventoLocal es null");
         }
 
         // 22/05/2024 -- Funcionalidad de mostrar el ultimo evento completado
         if(eventoLocal != null){
-            Log.d("EVENTOS HECHOS ","----------------------------------"+eventoLocal.toString());
             yaCompletado = eventoLocal.eventosCompletadosOrdenados(1);
-            Evento completado = yaCompletado.get(0);
-            labelPendienteCompletado.setText(completado.getNombre());
-        }else {
-            Log.d("EVENTO PENDIENTE", "DESCRIPCION DEL EVENTO" + labelPendienteCompletado);
+            if (!yaCompletado.isEmpty()) {
+                Evento completado = yaCompletado.get(0);
+                labelPendienteCompletado.setText(completado.getNombre());
+            } else {
+                Log.d("MainActivityJava", "No hay eventos completados");
+            }
+        } else {
+            Log.d("MainActivityJava", "eventoLocal es null");
         }
 
 
         // 20/05/2024 -- funcionalidad de ver el proximo pendiente de mañana
         if (eventoLocal != null) {
-            Log.d("EVENTO PENDIENTE",  "----------------------------------"+eventoLocal.toString());
             eventosDia = eventoLocal.cantidadEventosPendientes("dia");
             txtContadorEventos.setText(String.valueOf(eventosDia));
-            Log.d("EVENTO PENDIENTE", "CANTTIDAD DE EVENTOS: " + txtContadorEventos);
+            Log.d("MainActivityJava", "Cantidad de eventos del día: " + eventosDia);
 
             eventosSemana = eventoLocal.cantidadEventosPendientes("semana");
             txtContadorEventos2.setText(String.valueOf(eventosSemana));
-            Log.d("EVENTO PENDIENTE", "CANTTIDAD DE EVENTOS: " + txtContadorEventos2);
+            Log.d("MainActivityJava", "Cantidad de eventos de la semana: " + eventosSemana);
 
             eventosMes = eventoLocal.cantidadEventosPendientes("mes");
             txtContadorEventos3.setText(String.valueOf(eventosMes));
-            Log.d("EVENTO PENDIENTE", "CANTTIDAD DE EVENTOS: " + txtContadorEventos3);
+            Log.d("MainActivityJava", "Cantidad de eventos del mes: " + eventosMes);
         } else {
-            Log.d("EVENTO PENDIENTE", "eventoLocal es null");
+            Log.d("MainActivityJava", "eventoLocal es null");
         }
 
         // 02/05/2024 -- Funcionalidad boton Ver Todos //
-            // boundle envia la informacion de esta ventana a la otra
-        Bundle b = new Bundle();
+        // boundle envia la informacion de esta ventana a la otra
 
+        Bundle b = new Bundle();
         txtVerTodosEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
