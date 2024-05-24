@@ -18,6 +18,7 @@ import com.example.supertasks.modelos.Evento;
 import com.example.supertasks.modelos.EventosGuardados;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class ActivityEditarEventos extends AppCompatActivity {
     EditText editarNombre, editarDescripcion;
@@ -50,17 +51,26 @@ public class ActivityEditarEventos extends AppCompatActivity {
 
         // Obtener los datos ingresados en Crear Eventos 22-05-2024
 
-        Intent intent = getIntent();
-        String nombreEvento = intent.getStringExtra("nombreEvento");
-        String fecha = intent.getStringExtra("fechaEvento");
-        String descripcionEvento = intent.getStringExtra("descripcionEvento");
-        String prioridadEvento = intent.getStringExtra("prioridadSeleccionada");
-        editarNombre.setText(nombreEvento);
-        // fecha pendiente..
-        editarDescripcion.setText(descripcionEvento);
-        // Poner la prioridad en el combo box
-        PrioridadAdaptador.seleccionarOpcionCombo(editarPrioridad, prioridadEvento);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String nombre = bundle.getString("nombre");
+            String descripcion = bundle.getString("descripcion");
+            long fechaMillis = bundle.getLong("fecha");
+            int prioridad = bundle.getInt("prioridad");
 
+            evento = new Evento();
+            evento.setNombre(nombre);
+            evento.setDescripcion(descripcion);
+            evento.setFecha(new Date(fechaMillis));
+            evento.setPrioridad(prioridad);
+
+            editarNombre.setText(nombre);
+            editarDescripcion.setText(descripcion);
+            PrioridadAdaptador.seleccionarOpcionCombo(editarPrioridad, String.valueOf(prioridad));
+        } else {
+            Log.e("ActivityEditarEventos", "No se encontraron datos en el bundle");
+            Toast.makeText(this, "No se encontraron datos del evento", Toast.LENGTH_SHORT).show();
+        }
 
 
         // Boton para aceptar la edicion del evento 22-05-2024

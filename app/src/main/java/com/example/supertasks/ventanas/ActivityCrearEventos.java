@@ -204,27 +204,25 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
+
+                // Migrar datos 24-05-2024
+                Bundle bundle = new Bundle();
+                bundle.putString("nombre", evento.getNombre());
+                bundle.putString("descripcion", evento.getDescripcion());
+                bundle.putLong("fecha", evento.getFecha().getTime());
+                bundle.putInt("prioridad", evento.getPrioridad());
+
+                String mensaje = "Nombre: " + evento.getNombre() +
+                        "\nFecha: " + evento.getFecha() +
+                        "\nPrioridad: " + evento.getPrioridad();
+                Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+
                 if (eventoLocal != null) {
                     String guardarEvento = eventoLocal.agregarEvento(evento);
                     Log.d("ActivityCrearEventos", "Evento almacenado: " + guardarEvento);
-
-                    String mensaje = "Nombre: " + evento.getNombre() +
-                            "\nFecha: " + evento.getFecha() +
-                            "\nPrioridad: " + evento.getPrioridad();
-                    Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
-
                     // Programar la notificación
                     long triggerAtMillis = evento.getFecha().getTime();
                     scheduleNotification(nombre, descripcion, triggerAtMillis);
-
-                    // Migrar datos 24-05-2024
-
-                    Intent intent = new Intent(ActivityCrearEventos.this, ActivityEditarEventos.class);
-                    intent.putExtra("nombreEvento", nombre);
-                    intent.putExtra("descripcionEvento", descripcion);
-                    intent.putExtra("prioridadEvento", prioridadSeleccionada);
-                    intent.putExtra("fechaEvento", triggerAtMillis);
-                    startActivity(intent);
                     Log.d("ActivityCrearEventos", "Starting ActivityEditarEventos");
                 } else {
                     Log.e("ActivityCrearEventos", "eventosLocales es nulo");
