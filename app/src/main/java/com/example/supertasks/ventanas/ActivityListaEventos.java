@@ -29,8 +29,6 @@ import java.util.List;
 
 
 public class ActivityListaEventos extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
-    private static final int REQUEST_CODE_CREAR_EVENTO = 1;
     List<ListaEventos> elementos;
     RecyclerView recyclerView;
     ListaAdaptador listaAdaptador;
@@ -70,28 +68,25 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
             }
         });
 
-            //Para el spiner o Combobox
+        //Para el spiner o Combobox
         // Tomar spinner
         // aplicar item del listener seleccionado
         // indica el seleccionado
         Spinner cmbEventos = findViewById(R.id.ComboCompletados);
         cmbEventos.setOnItemSelectedListener(this);
         // lista de cosas de la combobox
-        ArrayAdapter ad
-                = new ArrayAdapter(
+        ArrayAdapter ad = new ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
-                palabrasCmb);
+                palabrasCmb
+        );
 
         // layout de el cmb
-        ad.setDropDownViewResource(
-                android.R.layout
-                        .simple_spinner_dropdown_item);
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Set the ArrayAdapter (ad) data on the
         // Spinner which binds data to spinner
         cmbEventos.setAdapter(ad);
-
 
         init();
     }
@@ -109,7 +104,7 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
 
     //Metodo para setear el recyclerView
     private void setearRecyclerView(String filtro){
-        RecyclerView recyclerView = findViewById(R.id.recyclerVwListaEventos);
+        recyclerView = findViewById(R.id.recyclerVwListaEventos);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -146,9 +141,6 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
         return listaAdaptador;
     }
 
-
-
-
     // Listeners del combobox
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -162,24 +154,5 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
-    }
-
-    // Agregar los eventos nuevos creados en CrearEventos a la lista 24-05-2024
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_CREAR_EVENTO && resultCode == RESULT_OK) {
-            if (data != null) {
-                String nombre = data.getStringExtra("nombre");
-                long fecha = data.getLongExtra("fecha", 0);
-                int prioridad = data.getIntExtra("prioridad", 0);
-
-                Evento nuevoEvento = new Evento();
-                nuevoEvento.setNombre(nombre);
-                nuevoEvento.setFecha(new Date(fecha));
-                nuevoEvento.setPrioridad(prioridad);
-                // listaAdaptador.notifyDataSetChanged();
-            }
-        }
     }
 }

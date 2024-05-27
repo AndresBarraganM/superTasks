@@ -3,6 +3,7 @@ package com.example.supertasks.ventanas;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.supertasks.R;
@@ -18,6 +19,7 @@ public class ActivityCalendario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
         EventoCalendario calendarioView = findViewById(R.id.calendario);
+        Button btnAgregar = findViewById(R.id.btnAgregar);
 
         // Obtener el Intent y los datos pasados
         Intent intent = getIntent();
@@ -34,6 +36,15 @@ public class ActivityCalendario extends AppCompatActivity {
         calendarioView.setEventoCalendario(eventoCalendario);
 
         ImageView btnRegresar = findViewById(R.id.btnRegresar);
+
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityCalendario.this, ActivityCrearEventos.class);
+                startActivity(intent);
+            }
+        });
+
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

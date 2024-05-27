@@ -1,7 +1,5 @@
 package com.example.supertasks.adaptadores;
 
-// Esta clase permite vincular el recycler view utilizado en @layout
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.supertasks.R;
 import com.example.supertasks.ventanas.ActivityEditarEventos;
-import com.example.supertasks.ventanas.ActivityListaEventos;
 
 import java.util.List;
+
 public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHolder> {
     private List<ListaEventos> mDato;
     private LayoutInflater mInflater;
@@ -27,9 +25,10 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
         this.mDato = itemList;
     }
 
-
     @Override
-    public int getItemCount() {return mDato.size();}
+    public int getItemCount() {
+        return mDato.size();
+    }
 
     @Override
     public ListaAdaptador.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,17 +36,19 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
         return new ViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(final ListaAdaptador.ViewHolder holder, final int position) {
         holder.bindData(mDato.get(position));
     }
 
-    public void setItems(List<ListaEventos> items) {mDato = items;}
+    public void setItems(List<ListaEventos> items) {
+        mDato = items;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iconEditar;
         TextView nombreEvento, fechaEvento;
+
         ViewHolder(View itemView) {
             super(itemView);
             iconEditar = itemView.findViewById(R.id.btnEditar1);

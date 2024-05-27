@@ -19,7 +19,7 @@
     <string name="contadorEventos2">0</string>
     <string name="contadorEventos3">0</string>
 
-    <string name="eventoDiario">Eventos \nmañana</string>
+    <string name="eventoDiario">Eventos \ndiarios</string>
     <string name="eventoSemanal">Eventos esta \nsemana</string>
     <string name="eventoMensual">Eventos este \nmes</string>
     <string name="pendienteCompletado">Pendientes Completados</string>
