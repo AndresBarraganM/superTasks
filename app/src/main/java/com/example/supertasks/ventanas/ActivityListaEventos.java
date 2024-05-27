@@ -33,7 +33,7 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     RecyclerView recyclerView;
     ListaAdaptador listaAdaptador;
 
-    String[] palabrasCmb = { "Eventos por hacer", "Eventos ya hechos"};
+    String[] palabrasCmb = {"Eventos por hacer", "Eventos ya hechos"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +109,8 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
         }
         //setearRecyclerView(b.getString(filtro);
 
+        setearRecyclerView(b.getString("filtro"));
+
     }
 
     //Metodo para setear el recyclerView
@@ -141,7 +143,7 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
         Evento ev;
         for (int i= 0; i <= eventos.size() -1; i++){
             ev = eventos.get(i);
-            elementos.add(new ListaEventos(ev.getNombre(), ev.getFecha().toString()));
+            elementos.add(new ListaEventos(ev.getNombre(), ev.getFecha(), ev.getDescripcion(), ev.getPrioridad()));
         }
 
         ListaAdaptador listaAdaptador = new ListaAdaptador(elementos, this);

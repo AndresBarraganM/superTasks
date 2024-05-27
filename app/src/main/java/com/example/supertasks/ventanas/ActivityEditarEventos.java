@@ -36,9 +36,9 @@ public class ActivityEditarEventos extends AppCompatActivity {
         EventosGuardados eventoLocal = MainActivity.eventosLocales;
 
         editarNombre = findViewById(R.id.txtFieldEditarNombre);
-        ImageView editarFecha = findViewById(R.id.verCalendario2);
         editarDescripcion = findViewById(R.id.editarDescripcion);
         editarPrioridad = findViewById(R.id.comboEditarPrioridad);
+
         btnAceptar = findViewById(R.id.btnTxtAceptar);
         btnRegresar = findViewById(R.id.btnRegresar2);
 
@@ -49,6 +49,12 @@ public class ActivityEditarEventos extends AppCompatActivity {
         if (intent != null) {
             String nombre = intent.getStringExtra("nombreEvento");
             String descripcion = intent.getStringExtra("descripcionEvento");
+            // Validacion temporal 27-05-2024
+            if (descripcion == null) {
+                descripcion = "Descripción no proporcionada";
+            }
+            editarDescripcion.setText(descripcion);
+            Log.w("ACTIVITI EVENTOS", "INTENT RASTREO" + intent);
             long fechaMillis = intent.getLongExtra("fechaEvento", -1);
             int prioridad = intent.getIntExtra("prioridadEvento", -1);
 
@@ -60,9 +66,16 @@ public class ActivityEditarEventos extends AppCompatActivity {
             }
             evento.setPrioridad(prioridad);
 
+            // Logging para diagnóstico
+            Log.d("ActivityEditarEventos", "Nombre: " + nombre);
+            Log.d("ActivityEditarEventos", "Descripción: " + descripcion);
+            Log.d("ActivityEditarEventos", "Fecha (millis): " + fechaMillis);
+            Log.d("ActivityEditarEventos", "Prioridad: " + prioridad);
+
             editarNombre.setText(nombre);
             editarDescripcion.setText(descripcion);
             PrioridadAdaptador.seleccionarOpcionCombo(editarPrioridad, String.valueOf(prioridad));
+            //editarPrioridad.setSelection(prioridad);
         } else {
             Log.e("ActivityEditarEventos", "No se encontraron datos en el intent");
             Toast.makeText(this, "No se encontraron datos del evento", Toast.LENGTH_SHORT).show();
@@ -92,6 +105,7 @@ public class ActivityEditarEventos extends AppCompatActivity {
                             evento.setNombre(nombre);
                             evento.setDescripcion(descripcion);
                             evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
+                            Log.d("PRIORIDAD QQQQ", "EVENTO PRIORIDAD" + prioridadSeleccionada);
                             String guardarEvento = eventoLocal.modificarEvento(evento);
                             String mensaje = "Nombre: " + nombre +
                                     "\nDescripción: " + descripcion +
@@ -114,16 +128,23 @@ public class ActivityEditarEventos extends AppCompatActivity {
                 }
             }
         });
+        init();
+    }
+    public void init(){
+        Intent intent = getIntent();
+        int prioridad = intent.getIntExtra("prioridadEvento", -1);
+        editarPrioridad.setSelection(prioridad-1);
+
     }
 
     private int convertirPrioridad(String prioridadSeleccionada) {
         switch (prioridadSeleccionada) {
             case "Alta":
-                return 1;
-            case "Media":
                 return 2;
+            case "Media":
+                return 1;
             case "Baja":
-                return 3;
+                return 0;
             default:
                 return 0;
         }

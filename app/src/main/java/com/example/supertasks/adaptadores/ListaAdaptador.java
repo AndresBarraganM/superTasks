@@ -2,10 +2,13 @@ package com.example.supertasks.adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,11 +52,14 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
         ImageView iconEditar;
         TextView nombreEvento, fechaEvento;
 
+        Spinner editarPrioridad;
+
         ViewHolder(View itemView) {
             super(itemView);
             iconEditar = itemView.findViewById(R.id.btnEditar1);
             nombreEvento = itemView.findViewById(R.id.tituloPendiente);
             fechaEvento = itemView.findViewById(R.id.txtFechaPendiente);
+            editarPrioridad = itemView.findViewById(R.id.comboEditarPrioridad);
 
             iconEditar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,7 +69,10 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
                         ListaEventos evento = mDato.get(position);
                         Intent intent = new Intent(contexto, ActivityEditarEventos.class);
                         intent.putExtra("nombreEvento", evento.getNombreEvento());
+                        intent.putExtra("descripcionEvento", evento.getDescripcion());
                         intent.putExtra("fechaEvento", evento.getFechaEvento());
+                        Log.d("LISTA ADAPTADOR", "evento"+ evento.toString());
+                        intent.putExtra("prioridadEvento", evento.getPrioridad());
                         contexto.startActivity(intent);
                     }
                 }
@@ -72,7 +81,8 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
 
         void bindData(final ListaEventos item) {
             nombreEvento.setText(item.getNombreEvento());
-            fechaEvento.setText(item.getFechaEvento());
+            fechaEvento.setText(item.getFechaEvento().toString());
         }
     }
 }
+

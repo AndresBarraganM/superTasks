@@ -31,14 +31,14 @@ class EventosGuardados constructor(private var db: DBHelper) {
         //Para 5 min
         fecha.add(Calendar.MINUTE,5)
         ev = Evento("Presentar proyecto", fecha.time, "Presentar el trabajo de topicos",
-            1, "amarillo")
+            0, "amarillo")
         this.agregarEvento(ev)
 
         fecha = Calendar.getInstance()
         //Para 1 dia
         fecha.add(Calendar.DAY_OF_MONTH,1)
         ev = Evento("Estudiar para metodos numericos", fecha.time, "Repasar para el examen de esta unidad",
-            3, "rojo")
+            2, "rojo")
         this.agregarEvento(ev)
 
         ev = Evento("Entregar examen", fecha.time, "Entregar el examende simulacion",
@@ -49,14 +49,14 @@ class EventosGuardados constructor(private var db: DBHelper) {
         //Para 1 semana
         fecha.add(Calendar.WEEK_OF_MONTH,1)
         ev = Evento("Paquete amazon", fecha.time, "Estar al pendiente de un paquete de amazon",
-            2, "amarillo")
+            1, "amarillo")
         this.agregarEvento(ev)
 
         fecha = Calendar.getInstance()
         //Para 2 semanas
         fecha.add(Calendar.WEEK_OF_MONTH,2)
         ev = Evento("Pagar agua", fecha.time, "Pagar recibo de agua",
-            3, "azul")
+            2, "azul")
         this.agregarEvento(ev)
 
         fecha = Calendar.getInstance()
@@ -78,11 +78,11 @@ class EventosGuardados constructor(private var db: DBHelper) {
         //Para 1 semana
         fecha.add(Calendar.WEEK_OF_MONTH,-1)
         ev = Evento("Realizar pruebas de programa", fecha.time, "Probar el programa de topicos y documentar",
-            3, "amarillo")
+            0, "amarillo")
         this.agregarEvento(ev)
 
         ev = Evento("Limpiar hogar", fecha.time, "Tener la casa limpia para las visitas",
-            2, "azul")
+            0, "azul")
         this.agregarEvento(ev)
     }
 
@@ -119,11 +119,16 @@ class EventosGuardados constructor(private var db: DBHelper) {
         //Obtener indice
         val indice = eventos.indexOfFirst { it.id_evento == (evento.id_evento)}
         //Obtener cual era el evento anterior
-        val eventoAnterior = eventos[indice]
-        //sustituir
-        eventos[indice] = evento
+        if (indice != -1) {
+            // Obtener el evento anterior
+            val eventoAnterior = eventos[indice]
+            // Sustituir
+            eventos[indice] = evento
 
-        return "Evento $eventoAnterior modificado a $evento"
+            return "Evento $eventoAnterior modificado a $evento"
+        } else {
+            return "No se encontró el evento a modificar en la lista"
+        }
     }
 
     // Función que muestra la cantidad de eventos que el usuario realizará

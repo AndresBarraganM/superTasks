@@ -44,8 +44,8 @@ public class ActivityCrearEventos extends AppCompatActivity {
 
     private void scheduleNotification(String nombre, String descripcion, long triggerAtMillis) {
         Intent intent = new Intent(this, NotificationReceiver.class);
-        intent.putExtra("nombre", nombre);
-        intent.putExtra("descripcion", descripcion);
+        intent.putExtra("nombreEvento", nombre);
+        intent.putExtra("descripcionEvento", descripcion);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -192,6 +192,7 @@ public class ActivityCrearEventos extends AppCompatActivity {
                 nombre = nombreEvento.getText().toString();
                 descripcion = descripcionEvento.getText().toString();
                 prioridadSeleccionada = comboPrioridad.getSelectedItem().toString();
+                Log.d("CREAR EVENTO", "PRIORIDAAAD" + prioridadSeleccionada);
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
@@ -226,11 +227,11 @@ public class ActivityCrearEventos extends AppCompatActivity {
 
     private int convertirPrioridad(String prioridadSeleccionada) {
         if ("Alta".equals(prioridadSeleccionada)) {
-            return 1;
-        } else if ("Media".equals(prioridadSeleccionada)) {
             return 2;
+        } else if ("Media".equals(prioridadSeleccionada)) {
+            return 1;
         } else if ("Baja".equals(prioridadSeleccionada)) {
-            return 3;
+            return 0;
         } else {
             return 0;
         }
