@@ -10,9 +10,11 @@
         android:id="@+id/imagenFondo"
         android:layout_width="485dp"
         android:layout_height="108dp"
+        android:backgroundTint="@color/colorPaletta1"
+        android:background="@drawable/encabezado"
         android:contentDescription="@string/imgEncabezado"
         android:scaleType="fitXY"
-        android:src="@drawable/encabezado"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,20 +36,21 @@
         <com.example.supertasks.adaptadores.EventoCalendario
             android:id="@+id/calendario"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
 
     </FrameLayout>
 
     <ImageView
         android:id="@+id/imagenFondo2"
-        android:layout_width="439dp"
-        android:layout_height="130dp"
+        android:layout_width="408dp"
+        android:layout_height="115dp"
+        android:background="@drawable/abajo"
+        android:backgroundTint="@color/colorPaletta2"
         android:contentDescription="@string/imgFondo2"
         android:scaleType="fitXY"
-        android:src="@drawable/abajo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
@@ -57,7 +60,7 @@
         android:id="@+id/btnAgregar"
         android:layout_width="142dp"
         android:layout_height="63dp"
-        android:background="@color/colorPrincipal"
+        android:background="@color/colorPaletta4"
         android:text="@string/btnAgregar"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -71,27 +74,28 @@
 
     <ImageView
         android:id="@+id/btnRegresar"
-        android:layout_width="125dp"
+        android:layout_width="110dp"
         android:layout_height="87dp"
+        android:contentDescription="@string/imgRegresarCalend"
         android:src="@drawable/regresar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintHorizontal_bias="0.189"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.989"
-        android:contentDescription="@string/imgRegresarCalend" />
+        app:layout_constraintVertical_bias="0.989" />
 
     <TextView
         android:id="@+id/btnTxtRegresar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="REGRESAR"
-        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.819"
+        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.952" />
@@ -100,6 +104,7 @@
         android:id="@+id/labelCalendario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:text="@string/textCalendario"
         android:textSize="30sp"
         android:textStyle="bold"

@@ -7,7 +7,7 @@
 
     <FrameLayout
         android:id="@+id/frameLayout"
-        android:backgroundTint="@color/colorPaletta1"
+        android:backgroundTint="@color/colorPrueba3"
         android:layout_width="428dp"
         android:layout_height="50dp"
         android:background="@drawable/frame_encabezado_verde"
@@ -20,7 +20,7 @@
 
         <ImageView
             android:id="@+id/btnRegresar2"
-            android:layout_width="73dp"
+            android:layout_width="53dp"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             app:srcCompat="@drawable/regresar2"
@@ -55,7 +55,7 @@
 
         <EditText
             android:id="@+id/editTextTextMultiLine"
-            android:background="@color/colorPaletta4"
+            android:background="@color/colorPrueba5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Descripcion del evento"
@@ -84,7 +84,7 @@
 
     <EditText
         android:id="@+id/txtFieldNombre"
-        android:background="@color/colorPaletta4"
+        android:background="@color/colorPrueba5"
         android:hint="Introduce el nombre del evento"
         android:textAlignment="center"
         android:gravity="start|center"
@@ -119,12 +119,11 @@
         android:id="@+id/imagenFondo2"
         android:layout_width="419dp"
         android:layout_height="87dp"
-        android:backgroundTint="@color/colorPaletta2"
         android:background="@drawable/abajo"
+        android:backgroundTint="@color/colorPrueba3"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
@@ -186,7 +185,7 @@
             android:id="@+id/comboPrioridad"
 
             android:layout_width="168dp"
-            android:background="@color/colorPaletta3"
+            android:background="@color/colorPrueba5"
             android:layout_height="match_parent"
             tools:ignore="TouchTargetSizeCheck" />
     </FrameLayout>

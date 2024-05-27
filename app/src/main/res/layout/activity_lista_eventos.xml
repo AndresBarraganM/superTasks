@@ -10,6 +10,7 @@
         android:layout_width="428dp"
         android:layout_height="50dp"
         android:background="@drawable/frame_encabezado_verde"
+        android:backgroundTint="@color/colorPaletta1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +31,7 @@
         android:layout_width="275dp"
         android:layout_height="44dp"
         android:background="@drawable/combo_box"
+        android:backgroundTint="@color/colorPrueba5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -39,6 +41,7 @@
 
         <Spinner
             android:id="@+id/ComboCompletados"
+
             android:layout_width="273dp"
             android:layout_height="42dp"
             tools:ignore="TouchTargetSizeCheck" />
@@ -50,7 +53,8 @@
         android:layout_height="105dp"
         android:contentDescription="@string/imgFondo2"
         android:scaleType="fitXY"
-        android:src="@drawable/abajo"
+        android:backgroundTint="@color/colorPaletta3"
+        android:background="@drawable/abajo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.513"
@@ -61,6 +65,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerVwListaEventos"
+        android:background="@color/colorPrueba5"
         android:layout_width="347dp"
         android:layout_height="389dp"
         app:layout_constraintBottom_toBottomOf="parent"
