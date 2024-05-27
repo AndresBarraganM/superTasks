@@ -69,15 +69,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_evento);
         EventosGuardados eventoLocal = MainActivity.eventosLocales;
-        if (eventoLocal != null) {
-            // Intenta agregar el evento
-            String guardarEvento = eventoLocal.agregarEvento(evento);
-            Log.d("ActivityCrearEventos", "Evento almacenado: " + guardarEvento);
-            // Resto del código para manejar el evento agregado
-        } else {
-            Log.e("ActivityCrearEventos", "eventosLocales es nulo");
-            // Manejar el caso donde eventosLocales es nulo, por ejemplo, mostrar un mensaje de error al usuario.
-        }
         TextView btnTxtAgregar = findViewById(R.id.btnTxtAgregar);
         comboPrioridad = findViewById(R.id.comboPrioridad);
         ImageView verCalendario = findViewById(R.id.verCalendario);
@@ -229,14 +220,6 @@ public class ActivityCrearEventos extends AppCompatActivity {
                     Log.e("ActivityCrearEventos", "eventosLocales es nulo");
                     Toast.makeText(ActivityCrearEventos.this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
                 }
-
-                // Migrar evento guardado a la lista de eventos 24-05-2024
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("nombre", evento.getNombre());
-                resultIntent.putExtra("fecha", evento.getFecha().getTime());
-                resultIntent.putExtra("prioridad", evento.getPrioridad());
-                setResult(RESULT_OK, resultIntent);
-                finish();
             }
         });
     }
