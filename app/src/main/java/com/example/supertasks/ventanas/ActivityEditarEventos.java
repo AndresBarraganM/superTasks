@@ -38,11 +38,6 @@ public class ActivityEditarEventos extends AppCompatActivity {
         editarNombre = findViewById(R.id.txtFieldEditarNombre);
         editarDescripcion = findViewById(R.id.editarDescripcion);
         editarPrioridad = findViewById(R.id.comboEditarPrioridad);
-        // Validacion 27-05-2024
-        if(editarPrioridad == null) {
-            Log.d("ACTIVITY EDITAR EVENTOS", "SPINNER NULO");
-            return;
-        }
 
         btnAceptar = findViewById(R.id.btnTxtAceptar);
         btnRegresar = findViewById(R.id.btnRegresar2);
@@ -79,9 +74,7 @@ public class ActivityEditarEventos extends AppCompatActivity {
 
             editarNombre.setText(nombre);
             editarDescripcion.setText(descripcion);
-            // 27-05-2024 correccion prioridades mezcladas (test)
-            String prioridadTexto = PrioridadAdaptador.convertirPrioridadATexto(prioridad);
-            PrioridadAdaptador.seleccionarOpcionCombo(editarPrioridad, prioridadTexto);
+            PrioridadAdaptador.seleccionarOpcionCombo(editarPrioridad, String.valueOf(prioridad));
             //editarPrioridad.setSelection(prioridad);
         } else {
             Log.e("ActivityEditarEventos", "No se encontraron datos en el intent");
