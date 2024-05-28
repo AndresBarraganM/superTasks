@@ -38,6 +38,11 @@ public class ActivityEditarEventos extends AppCompatActivity {
         editarNombre = findViewById(R.id.txtFieldEditarNombre);
         editarDescripcion = findViewById(R.id.editarDescripcion);
         editarPrioridad = findViewById(R.id.comboEditarPrioridad);
+        // Validacion 27-05-2024
+        if(editarPrioridad == null) {
+            Log.d("ACTIVITY EDITAR EVENTOS", "SPINNER NULO");
+            return;
+        }
 
         btnAceptar = findViewById(R.id.btnTxtAceptar);
         btnRegresar = findViewById(R.id.btnRegresar2);
