@@ -74,7 +74,9 @@ public class ActivityEditarEventos extends AppCompatActivity {
 
             editarNombre.setText(nombre);
             editarDescripcion.setText(descripcion);
-            PrioridadAdaptador.seleccionarOpcionCombo(editarPrioridad, String.valueOf(prioridad));
+            // 27-05-2024 correccion prioridades mezcladas (test)
+            String prioridadTexto = PrioridadAdaptador.convertirPrioridadATexto(prioridad);
+            PrioridadAdaptador.seleccionarOpcionCombo(editarPrioridad, prioridadTexto);
             //editarPrioridad.setSelection(prioridad);
         } else {
             Log.e("ActivityEditarEventos", "No se encontraron datos en el intent");
@@ -139,14 +141,14 @@ public class ActivityEditarEventos extends AppCompatActivity {
 
     private int convertirPrioridad(String prioridadSeleccionada) {
         switch (prioridadSeleccionada) {
-            case "Alta":
-                return 2;
-            case "Media":
-                return 1;
             case "Baja":
                 return 0;
+            case "Media":
+                return 1;
+            case "Alta":
+                return 2;
             default:
-                return 0;
+                return -1;
         }
     }
 }

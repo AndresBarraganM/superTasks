@@ -226,12 +226,12 @@ public class ActivityCrearEventos extends AppCompatActivity {
     }
 
     private int convertirPrioridad(String prioridadSeleccionada) {
-        if ("Alta".equals(prioridadSeleccionada)) {
-            return 2;
+        if ("Baja".equals(prioridadSeleccionada)) {
+            return 0;
         } else if ("Media".equals(prioridadSeleccionada)) {
             return 1;
-        } else if ("Baja".equals(prioridadSeleccionada)) {
-            return 0;
+        } else if ("Alta".equals(prioridadSeleccionada)) {
+            return 2;
         } else {
             return 0;
         }

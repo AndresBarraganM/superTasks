@@ -21,4 +21,19 @@ public class PrioridadAdaptador {
             }
         }
     }
+
+    // Funcion para corregir el problema de las prioridades (aparecen las incorrectas) 27-05-2024
+    public static String convertirPrioridadATexto(int prioridad) {
+        switch (prioridad) {
+            case 0:
+                return "Baja";
+            case 1:
+                return "Media";
+            case 2:
+                return "Alta";
+            default:
+                return "Error";
+        }
+    }
+
 }
