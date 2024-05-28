@@ -82,7 +82,6 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
         void bindData(final ListaEventos item) {
             nombreEvento.setText(item.getNombreEvento());
             fechaEvento.setText(item.getFechaEvento().toString());
-            editarPrioridad.setSelection(item.getPrioridad());
         }
     }
 }
