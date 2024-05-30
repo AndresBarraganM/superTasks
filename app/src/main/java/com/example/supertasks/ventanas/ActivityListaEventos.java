@@ -32,7 +32,6 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     List<ListaEventos> elementos;
     RecyclerView recyclerView;
     ListaAdaptador listaAdaptador;
-
     String[] palabrasCmb = {"Eventos por hacer", "Eventos ya hechos"};
 
     @Override
@@ -146,7 +145,7 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
             elementos.add(new ListaEventos(ev.getNombre(), ev.getFecha(), ev.getDescripcion(), ev.getPrioridad()));
         }
 
-        ListaAdaptador listaAdaptador = new ListaAdaptador(elementos, this);
+        listaAdaptador = new ListaAdaptador(elementos, this);
 
 
         return listaAdaptador;
@@ -166,4 +165,5 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

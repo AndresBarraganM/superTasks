@@ -1,13 +1,17 @@
 package com.example.supertasks.ventanas;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +27,15 @@ import java.util.Date;
 
 public class ActivityEditarEventos extends AppCompatActivity {
     EditText editarNombre, editarDescripcion;
-    ImageView btnRegresar;
+    ImageView btnRegresar, editarFecha;
     TextView btnAceptar;
     Spinner editarPrioridad;
     private Evento evento = new Evento();
+    private String fechaFormateada;
     Calendar fecha = Calendar.getInstance();
 
+
+    int dia, mes, anio, hora, minuto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +45,7 @@ public class ActivityEditarEventos extends AppCompatActivity {
         editarNombre = findViewById(R.id.txtFieldEditarNombre);
         editarDescripcion = findViewById(R.id.editarDescripcion);
         editarPrioridad = findViewById(R.id.comboEditarPrioridad);
-
+        editarFecha = findViewById(R.id.verCalendario2);
         btnAceptar = findViewById(R.id.btnTxtAceptar);
         btnRegresar = findViewById(R.id.btnRegresar2);
 
@@ -83,6 +90,43 @@ public class ActivityEditarEventos extends AppCompatActivity {
             Toast.makeText(this, "No se encontraron datos del evento", Toast.LENGTH_SHORT).show();
         }
 
+        // Funcionalidad calendario 28-05-2024
+
+        editarFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dia = fecha.get(Calendar.DAY_OF_MONTH);
+                mes = fecha.get(Calendar.MONTH);
+                anio = fecha.get(Calendar.YEAR);
+                hora = fecha.get(Calendar.HOUR_OF_DAY);
+                minuto = fecha.get(Calendar.MINUTE);
+
+                DatePickerDialog dpd = new DatePickerDialog(ActivityEditarEventos.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado) {
+                                TimePickerDialog tpd = new TimePickerDialog(ActivityEditarEventos.this,
+                                        new TimePickerDialog.OnTimeSetListener() {
+                                            @Override
+                                            public void onTimeSet(TimePicker view, int horaSeleccionada, int minutoSeleccionado) {
+                                                evento.setFechaFromDatePicker(anioSeleccionado, mesSeleccionado, diaSeleccionado, horaSeleccionada, minutoSeleccionado);
+
+                                                String diaFormateado = (diaSeleccionado < 10) ? "0" + diaSeleccionado : String.valueOf(diaSeleccionado);
+                                                String mesFormateado = (mesSeleccionado < 9) ? "0" + (mesSeleccionado + 1) : String.valueOf(mesSeleccionado + 1);
+                                                String horaFormateada = (horaSeleccionada < 10) ? "0" + horaSeleccionada : String.valueOf(horaSeleccionada);
+                                                String minutoFormateado = (minutoSeleccionado < 10) ? "0" + minutoSeleccionado : String.valueOf(minutoSeleccionado);
+                                                fechaFormateada = anioSeleccionado + "/" + mesFormateado + "/" + diaFormateado + " " + horaFormateada + ":" + minutoFormateado;
+
+                                                Log.d("ActivityCrearEventos", "Fecha y hora seleccionadas: " + fechaFormateada);
+                                            }
+                                        }, hora, minuto, true);
+                                tpd.show();
+                            }
+                        }, anio, mes, dia);
+                dpd.show();
+            }
+        });
+
         // Botón para regresar 22-05-2024
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,9 +153,7 @@ public class ActivityEditarEventos extends AppCompatActivity {
                             evento.setPrioridad(convertirPrioridad(prioridadSeleccionada));
                             Log.d("PRIORIDAD QQQQ", "EVENTO PRIORIDAD" + prioridadSeleccionada);
                             String guardarEvento = eventoLocal.modificarEvento(evento);
-                            String mensaje = "Nombre: " + nombre +
-                                    "\nDescripción: " + descripcion +
-                                    "\nPrioridad: " + prioridadSeleccionada;
+                            String mensaje = "Evento modificado";
                             Toast.makeText(v.getContext(), mensaje, Toast.LENGTH_LONG).show();
 
                             // Regresar a la actividad principal
@@ -135,7 +177,7 @@ public class ActivityEditarEventos extends AppCompatActivity {
     public void init(){
         Intent intent = getIntent();
         int prioridad = intent.getIntExtra("prioridadEvento", -1);
-        editarPrioridad.setSelection(prioridad-1);
+        editarPrioridad.setSelection(prioridad);
 
     }
 
@@ -148,7 +190,7 @@ public class ActivityEditarEventos extends AppCompatActivity {
             case "Alta":
                 return 2;
             default:
-                return -1;
+                return 0;
         }
     }
 }
