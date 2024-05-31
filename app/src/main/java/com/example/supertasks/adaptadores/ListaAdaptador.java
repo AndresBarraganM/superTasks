@@ -30,10 +30,11 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
     private Context contexto;
     private EventosGuardados eventoGuardado;
 
-    public ListaAdaptador(List<ListaEventos> itemList, Context contexto) {
+    public ListaAdaptador(List<ListaEventos> itemList, Context contexto, EventosGuardados eventosGuardados) {
         this.mInflater = LayoutInflater.from(contexto);
         this.contexto = contexto;
         this.mDato = itemList;
+        this.eventoGuardado = eventosGuardados;
     }
 
     @Override
@@ -93,27 +94,32 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         ListaEventos evento = mDato.get(position);
-                        Evento eventoEliminnar = new Evento();
-                        eventoEliminnar.setNombre(evento.getNombreEvento());
-                        eventoEliminnar.setDescripcion(evento.getDescripcion());
-                        eventoEliminnar.setPrioridad(evento.getPrioridad());
-                        String mensaje = eventoGuardado.eliminarEvento(eventoEliminnar);
-                        Toast.makeText(contexto, mensaje, Toast.LENGTH_LONG).show();
-                        notifyItemRemoved(position);
+                        String nombreEvento = evento.getNombreEvento();
+                        String descripcionEvento = evento.getDescripcion();
+                        int prioridadEvento = evento.getPrioridad();
+                        Log.d("LISTA EVENTOS", "Evento a borrar - Nombre: " + nombreEvento + ", Descripción: " + descripcionEvento + ", Prioridad: " + prioridadEvento);
+                        if (eventoGuardado != null) {
+                            Evento eventoEliminar = new Evento();
+                            eventoEliminar.setNombre(nombreEvento);
+                            eventoEliminar.setDescripcion(descripcionEvento);
+                            eventoEliminar.setPrioridad(prioridadEvento);
+
+                            // Llamar al método eliminarEvento con el evento a eliminar
+                            String mensaje = eventoGuardado.eliminarEvento(eventoEliminar);
+                            Log.d("LISTA EVENTOS", "BORRAR EVENTO - " + mensaje);
+                            Toast.makeText(contexto, mensaje, Toast.LENGTH_LONG).show();
+
+                            // Eliminar el evento de la lista y notificar al adaptador
+                            mDato.remove(position);
+                            notifyItemRemoved(position);
+                        } else {
+                            Log.e("ListaAdaptador", "El objeto eventoGuardado es nulo");
+                            Toast.makeText(contexto, "Error: No se pudo eliminar el evento", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });
         }
-
-//        private Date convertStringToDate(String dateString) {
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//            try {
-//                return sdf.parse(dateString);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//                return new Date();
-//            }
-//        }
 
 
         void bindData(final ListaEventos item) {

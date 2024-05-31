@@ -99,14 +99,33 @@ class EventosGuardados constructor(private var db: DBHelper) {
 
     // Funcion que guarda los eventos que el usuario quiera eliminar
     fun eliminarEvento(evento: Evento): String {
-        //Agregar a base de datos
-        evento.id_evento?.let { db.borrarEvento(it) }
+        // Verificar si el evento está en la lista antes de intentar eliminarlo
+        if (!eventos.contains(evento)) {
+            return "El evento no está en la lista"
+        }
 
-        //Agregar a lista
-        eventos.remove(evento)
+        // Verificar si el ID del evento está configurado correctamente
+        val idEvento = evento.id_evento
+        if (idEvento == null) {
+            return "El ID del evento es nulo"
+        }
 
-        return "Evento: ${evento} eliminado correctamente"
+        // Intentar eliminar el evento de la base de datos
+        try {
+            db.borrarEvento(idEvento)
+        } catch (e: Exception) {
+            // Manejar cualquier excepción que ocurra al eliminar el evento de la base de datos
+            return "Error al eliminar el evento de la base de datos: ${e.message}"
+        }
+
+        // Si se eliminó correctamente de la base de datos, eliminarlo de la lista
+        return if (eventos.remove(evento)) {
+            "Evento eliminado correctamente"
+        } else {
+            "Error al eliminar el evento de la lista"
+        }
     }
+
 
     // Funcion que modifica los eventos existentes del usuario
     fun modificarEvento( evento: Evento): String {

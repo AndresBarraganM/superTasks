@@ -22,6 +22,7 @@ import com.example.supertasks.R;
 import com.example.supertasks.adaptadores.ListaAdaptador;
 import com.example.supertasks.adaptadores.ListaEventos;
 import com.example.supertasks.modelos.Evento;
+import com.example.supertasks.modelos.EventosGuardados;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +33,7 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
     List<ListaEventos> elementos;
     RecyclerView recyclerView;
     ListaAdaptador listaAdaptador;
+    EventosGuardados eventoGuardados = MainActivity.eventosLocales;
     String[] palabrasCmb = {"Eventos por hacer", "Eventos ya hechos"};
 
     @Override
@@ -145,7 +147,7 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
             elementos.add(new ListaEventos(ev.getNombre(), ev.getFecha(), ev.getDescripcion(), ev.getPrioridad()));
         }
 
-        listaAdaptador = new ListaAdaptador(elementos, this);
+        listaAdaptador = new ListaAdaptador(elementos, this, eventoGuardados);
 
 
         return listaAdaptador;
