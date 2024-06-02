@@ -1,5 +1,6 @@
 package com.example.supertasks.modelos
 
+import android.util.Log
 import com.example.supertasks.metodos_bd.DBHelper
 import java.util.Calendar
 import java.util.Date
@@ -98,14 +99,10 @@ class EventosGuardados constructor(private var db: DBHelper) {
     }
 
     // Funcion que guarda los eventos que el usuario quiera eliminar
-    fun eliminarEvento(evento: Evento): String {
+    fun eliminarEvento(idEvento: Int): String {
         // Verificar si el evento está en la lista antes de intentar eliminarlo
-        if (!eventos.contains(evento)) {
-            return "El evento no está en la lista"
-        }
 
         // Verificar si el ID del evento está configurado correctamente
-        val idEvento = evento.id_evento
         if (idEvento == null) {
             return "El ID del evento es nulo"
         }
@@ -119,11 +116,11 @@ class EventosGuardados constructor(private var db: DBHelper) {
         }
 
         // Si se eliminó correctamente de la base de datos, eliminarlo de la lista
-        return if (eventos.remove(evento)) {
-            "Evento eliminado correctamente"
-        } else {
-            "Error al eliminar el evento de la lista"
-        }
+        val indice = eventos.indexOfFirst{it.id_evento == idEvento}
+
+        eventos = eventos.filterIndexed { index, _ -> index != 0 }.toMutableList()
+        Log.d("EVENTOS GUARDADOS", "eventos: "+ eventos)
+        return "Evento eliminado"
     }
 
 
