@@ -48,6 +48,7 @@
             </ImageView>
 
             <FrameLayout
+                android:id="@+id/framePrioridad"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/frame_nivel_prioridad">

@@ -4,11 +4,13 @@ import static com.example.supertasks.MainActivity.eventosLocales;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.metrics.Event;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -61,7 +63,7 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iconEditar, btnBorrar;
         TextView nombreEvento, fechaEvento;
-
+        FrameLayout framePrioridad;
         Spinner editarPrioridad;
 
         ViewHolder(View itemView) {
@@ -70,6 +72,7 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
             btnBorrar = itemView.findViewById(R.id.btnBorrar);
             nombreEvento = itemView.findViewById(R.id.tituloPendiente);
             fechaEvento = itemView.findViewById(R.id.txtFechaPendiente);
+            framePrioridad = itemView.findViewById(R.id.framePrioridad);
             editarPrioridad = itemView.findViewById(R.id.comboEditarPrioridad);
 
             iconEditar.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +85,7 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
                         intent.putExtra("nombreEvento", evento.getNombreEvento());
                         intent.putExtra("descripcionEvento", evento.getDescripcion());
                         intent.putExtra("fechaEvento", evento.getFechaEvento());
-                        Log.d("LISTA ADAPTADOR", "evento"+ evento.toString());
+                        Log.d("LISTA ADAPTADOR", "evento" + evento.toString());
                         intent.putExtra("prioridadEvento", evento.getPrioridad());
                         contexto.startActivity(intent);
                     }
@@ -99,7 +102,7 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
                         String descripcionEvento = evento.getDescripcion();
                         int prioridadEvento = evento.getPrioridad();
                         int id_evento = evento.getId_evento();
-                        Log.d("LISTA EVENTOS", "Evento a borrar - Nombre: " + nombreEvento + ", Descripción: " + descripcionEvento + ", Prioridad: " + prioridadEvento+ ", ID"+ evento.getId_evento() );
+                        Log.d("LISTA EVENTOS", "Evento a borrar - Nombre: " + nombreEvento + ", Descripción: " + descripcionEvento + ", Prioridad: " + prioridadEvento + ", ID" + evento.getId_evento());
                         if (eventosLocales != null) {
 
 
@@ -124,6 +127,22 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
         void bindData(final ListaEventos item) {
             nombreEvento.setText(item.getNombreEvento());
             fechaEvento.setText(item.getFechaEvento().toString());
+            int color = obtenerColorPrioridad(item.getPrioridad());
+            framePrioridad.setBackgroundColor(color);
+        }
+
+        // Metodo para cambiar el color de la prioridad
+        private int obtenerColorPrioridad(int prioridad) {
+            switch (prioridad) {
+                case 2: // Alta
+                    return Color.RED;
+                case 1: // Media
+                    return Color.YELLOW;
+                case 0: // Baja
+                    return Color.GREEN;
+                default:
+                    return Color.WHITE;
+            }
         }
     }
 }
