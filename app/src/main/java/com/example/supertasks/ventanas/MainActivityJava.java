@@ -60,7 +60,7 @@ public class MainActivityJava extends AppCompatActivity {
         // Se inicializa la clase EventosGuardados
 
         // 22/05/2024 -- Funcionalidad de mostrar los dos ultimos eventos pendientes
-        if(eventoLocal != null){
+        if(eventoLocal != null || eventoLocal.getEventos().size() >2){
             porCompletar = eventoLocal.eventosCercanos(2);
             if (porCompletar.size() >= 2) {
                 Evento ultimoEvento1 = porCompletar.get(0);

@@ -182,7 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="10dp"
-            android:text="TextView" />
+            android:text="" />
 
     </FrameLayout>
 
@@ -205,7 +205,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="10dp"
-            android:text="TextView"/>
+            android:text=""/>
     </FrameLayout>
 
     <Button
@@ -280,7 +280,7 @@
             android:layout_marginStart="100dp"
             android:layout_marginTop="30dp"
             android:textSize="16sp"
-            android:text="TextView" />
+            android:text="Todo completado" />
     </FrameLayout>
 
     <ImageView
