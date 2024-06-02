@@ -147,7 +147,7 @@ public class ActivityListaEventos extends AppCompatActivity implements AdapterVi
             elementos.add(new ListaEventos(ev.getNombre(), ev.getFecha(), ev.getDescripcion(), ev.getPrioridad(), ev.getId_evento()));
         }
 
-        listaAdaptador = new ListaAdaptador(elementos, this, eventoGuardados);
+        listaAdaptador = new ListaAdaptador(elementos, this);
 
 
         return listaAdaptador;

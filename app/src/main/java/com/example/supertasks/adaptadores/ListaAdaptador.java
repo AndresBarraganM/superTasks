@@ -1,5 +1,7 @@
 package com.example.supertasks.adaptadores;
 
+import static com.example.supertasks.MainActivity.eventosLocales;
+
 import android.content.Context;
 import android.content.Intent;
 import android.media.metrics.Event;
@@ -18,6 +20,7 @@ import com.example.supertasks.modelos.Evento;
 
 import com.example.supertasks.R;
 import com.example.supertasks.ventanas.ActivityEditarEventos;
+import com.example.supertasks.MainActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,13 +31,11 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
     private List<ListaEventos> mDato;
     private LayoutInflater mInflater;
     private Context contexto;
-    private EventosGuardados eventoGuardado;
 
-    public ListaAdaptador(List<ListaEventos> itemList, Context contexto, EventosGuardados eventosGuardados) {
+    public ListaAdaptador(List<ListaEventos> itemList, Context contexto) {
         this.mInflater = LayoutInflater.from(contexto);
         this.contexto = contexto;
         this.mDato = itemList;
-        this.eventoGuardado = eventosGuardados;
     }
 
     @Override
@@ -97,15 +98,13 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
                         String nombreEvento = evento.getNombreEvento();
                         String descripcionEvento = evento.getDescripcion();
                         int prioridadEvento = evento.getPrioridad();
-                        Log.d("LISTA EVENTOS", "Evento a borrar - Nombre: " + nombreEvento + ", Descripción: " + descripcionEvento + ", Prioridad: " + prioridadEvento);
-                        if (eventoGuardado != null) {
-                            Evento eventoEliminar = new Evento();
-                            eventoEliminar.setNombre(nombreEvento);
-                            eventoEliminar.setDescripcion(descripcionEvento);
-                            eventoEliminar.setPrioridad(prioridadEvento);
+                        int id_evento = evento.getId_evento();
+                        Log.d("LISTA EVENTOS", "Evento a borrar - Nombre: " + nombreEvento + ", Descripción: " + descripcionEvento + ", Prioridad: " + prioridadEvento+ ", ID"+ evento.getId_evento() );
+                        if (eventosLocales != null) {
+
 
                             // Llamar al método eliminarEvento con el evento a eliminar
-                            String mensaje = eventoGuardado.eliminarEvento(eventoEliminar);
+                            String mensaje = eventosLocales.eliminarEvento(id_evento);
                             Log.d("LISTA EVENTOS", "BORRAR EVENTO - " + mensaje);
                             Toast.makeText(contexto, mensaje, Toast.LENGTH_LONG).show();
 
