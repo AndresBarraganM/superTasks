@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFF00"/> <!-- Color amarillo para prioridad media -->
+    <stroke android:width="2dp" android:color="#000000"/> <!-- Borde negro -->
+    <corners android:radius="400dp"/> <!-- Radio para hacerlo circular -->
+</shape>

@@ -22,11 +22,6 @@ import com.example.supertasks.modelos.Evento;
 
 import com.example.supertasks.R;
 import com.example.supertasks.ventanas.ActivityEditarEventos;
-import com.example.supertasks.MainActivity;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHolder> {
@@ -128,20 +123,20 @@ public class ListaAdaptador extends RecyclerView.Adapter<ListaAdaptador.ViewHold
             nombreEvento.setText(item.getNombreEvento());
             fechaEvento.setText(item.getFechaEvento().toString());
             int color = obtenerColorPrioridad(item.getPrioridad());
-            framePrioridad.setBackgroundColor(color);
+            framePrioridad.setBackgroundResource(color);
         }
 
         // Metodo para cambiar el color de la prioridad
         private int obtenerColorPrioridad(int prioridad) {
             switch (prioridad) {
                 case 2: // Alta
-                    return Color.RED;
+                    return R.drawable.frame_nivel_prioridad_alta;
                 case 1: // Media
-                    return Color.YELLOW;
+                    return R.drawable.frame_nivel_prioridad_media;
                 case 0: // Baja
-                    return Color.GREEN;
+                    return R.drawable.frame_nivel_prioridad_baja;
                 default:
-                    return Color.WHITE;
+                    return R.drawable.frame_nivel_prioridad_default; // Por si acaso
             }
         }
     }
