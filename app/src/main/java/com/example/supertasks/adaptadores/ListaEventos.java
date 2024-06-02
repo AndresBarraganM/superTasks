@@ -7,12 +7,14 @@ public class ListaEventos {
     public String fechaEvento;
     public int prioridadEvento;
 
+    public int id_evento;
 
-    public ListaEventos(String nombreEvento, Date fechaEvento, String descripcionEvento, int prioridadEvento) {
+    public ListaEventos(String nombreEvento, Date fechaEvento, String descripcionEvento, int prioridadEvento, int id_evento) {
         this.nombreEvento = nombreEvento;
         this.fechaEvento = String.valueOf(fechaEvento);
         this.descripcionEvento = descripcionEvento;
         this.prioridadEvento = prioridadEvento;
+        this.id_evento = id_evento;
     }
 
     public String getNombreEvento() {
@@ -41,5 +43,7 @@ public class ListaEventos {
 
     public void setPrioridadEvento(int prioridadEvento) {this.prioridadEvento = prioridadEvento;}
 
+    public int getId_evento() {return id_evento;}
 
+    public void setId_evento(int id_evento) {this.id_evento = id_evento;}
 }
